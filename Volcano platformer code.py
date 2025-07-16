@@ -37,6 +37,14 @@ while running:
     #setting background colour
     window.fill(background_red)
 
+    #giving player movement with arrow keys
+    keys=pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        block_x-=5
+    
+    if keys[pygame.K_RIGHT]:
+        block_x+=5
+
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
 
