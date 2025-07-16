@@ -24,6 +24,12 @@ block_x=100
 block_y=100
 block=pygame.Rect([block_x,block_y,block_size,block_size])
 
+#setting platform positions and dimensions
+platform_size_x=155
+platform_size_y=20
+platform_x=100
+platform_y=75
+platform=pygame.Rect([platform_x,platform_y,platform_size_x,platform_size_y])
 #starting the main game loop
 while running:
 
@@ -47,6 +53,9 @@ while running:
 
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
+
+    #putting platforms in window
+    pygame.draw.rect(window,block_red,[platform_x,platform_y,platform_size_x,platform_size_y])
 
     #updating the window
     pygame.display.flip()
