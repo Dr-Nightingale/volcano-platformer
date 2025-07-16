@@ -21,14 +21,14 @@ block_red=(47,23,23)
 #setting player positions and dimensions (block for now)
 block_size=30
 block_x=100
-block_y=450
+block_y=470
 block=pygame.Rect([block_x,block_y,block_size,block_size])
 
 #setting platform positions and dimensions
 platform_size_x=155
 platform_size_y=20
-platform_x=100
-platform_y=200
+platform_x=200
+platform_y=480
 platform=pygame.Rect([platform_x,platform_y,platform_size_x,platform_size_y])
 #starting the main game loop
 while running:
@@ -46,10 +46,10 @@ while running:
     #giving player movement with arrow keys
     keys=pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        block_x-=1
+        block_x-=0.25
     
     if keys[pygame.K_RIGHT]:
-        block_x+=1
+        block_x+=0.25
 
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
