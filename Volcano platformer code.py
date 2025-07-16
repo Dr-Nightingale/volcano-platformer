@@ -13,3 +13,32 @@ window=pygame.display.set_mode((screen_width, screen_height))
 
 #making a bool value to check if the game is running
 running=True
+
+#setting colour presets
+background_red=(169,62,62)
+block_red=(47,23,23)
+
+#setting player positions and dimensions (block for now)
+block_size=20
+block_x=50
+block_y=50
+block=pygame.Rect([block_x,block_y,block_size,block_size])
+
+#starting the main game loop
+while running:
+
+    #checking for event in queue
+    for event in pygame.event.get():
+
+        #setting running bool to false if event type is quit
+        if event.type==pygame.QUIT:
+            running=False
+
+    #setting background colour
+    window.fill(background_red)
+
+    #putting player (block) in window
+    pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
+
+    #updating the window
+    pygame.display.flip()
