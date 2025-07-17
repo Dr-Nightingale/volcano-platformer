@@ -58,7 +58,7 @@ while running:
     pygame.draw.rect(window,block_red,[platform_x,platform_y,platform_size_x,platform_size_y])
 
     #stop player from going through platform
-    if block_x<=platform_x<=block_x+100:
-        block_x=platform_x
+    if block_x<=platform_x<=block_x+30:
+        block_x=platform_x-30
     #updating the window
     pygame.display.flip()
