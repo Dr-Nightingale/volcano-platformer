@@ -51,6 +51,13 @@ while running:
     if keys[pygame.K_RIGHT]:
         block_x+=0.25
 
+    #temporary y movement to make sure player doesn't clip through platform
+    if keys[pygame.K_UP]:
+        block_y-=0.25
+
+    if keys[pygame.K_DOWN]:
+        block_y+=0.25
+
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
 
@@ -58,10 +65,11 @@ while running:
     pygame.draw.rect(window,block_red,[platform_x,platform_y,platform_size_x,platform_size_y])
 
     #stop player from going through platform
-    if block_x<=platform_x<=block_x+30:
-        block_x=platform_x-30
+    if block_y<=platform_y<=block_y+30:
+        if block_x<=platform_x<=block_x+30:
+            block_x=platform_x-30
 
-    if block_x>=platform_x>=block_x-155:
-        block_x=platform_x+155
+        if block_x>=platform_x>=block_x-155:
+            block_x=platform_x+155
     #updating the window
     pygame.display.flip()
