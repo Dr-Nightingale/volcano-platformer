@@ -20,7 +20,7 @@ block_red=(47,23,23)
 
 #setting player positions and dimensions (block for now)
 block_size=30
-block_x=80
+block_x=700
 block_y=470
 block=pygame.Rect([block_x,block_y,block_size,block_size])
 
@@ -60,5 +60,8 @@ while running:
     #stop player from going through platform
     if block_x<=platform_x<=block_x+30:
         block_x=platform_x-30
+
+    if block_x>=platform_x>=block_x-155:
+        block_x=platform_x+155
     #updating the window
     pygame.display.flip()
