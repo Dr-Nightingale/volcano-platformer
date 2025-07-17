@@ -67,6 +67,13 @@ while running:
     #stop player from moving outside the window
     if block_y>=screen_height-30:
         block_y=screen_height-30
+    if block_x<=0:
+        block_x=0
+
+    if block_x>=screen_width-30:
+        block_x=screen_width-30
+
+
     #stop player from going through platform
     if block_y<=platform_y<=block_y+30:
         if block_x<=platform_x<=block_x+30:
