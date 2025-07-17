@@ -64,6 +64,9 @@ while running:
     #putting platforms in window
     pygame.draw.rect(window,block_red,[platform_x,platform_y,platform_size_x,platform_size_y])
 
+    #stop player from moving outside the window
+    if block_y>=screen_height-30:
+        block_y=screen_height-30
     #stop player from going through platform
     if block_y<=platform_y<=block_y+30:
         if block_x<=platform_x<=block_x+30:
