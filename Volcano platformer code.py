@@ -74,12 +74,18 @@ while running:
         block_x=screen_width-30
 
 
-    #stop player from going through platform
+    #stop player from going through platform sides
     if block_y<=platform_y<=block_y+30:
         if block_x<=platform_x<=block_x+30:
             block_x=platform_x-30
 
         if block_x>=platform_x>=block_x-155:
             block_x=platform_x+155
+    
+    #allow player to land on platform and stay there
+    if block_y==platform_y:
+        block_y=platform_y
+
+    
     #updating the window
     pygame.display.flip()
