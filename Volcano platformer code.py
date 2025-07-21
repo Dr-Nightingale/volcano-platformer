@@ -80,12 +80,12 @@ while running:
         
     
         #right side
-        
-    if block_x<=platform_x<=block_x+30:
-        block_x=platform_x-30
+    if block_y>=platform_y-25:
+        if block_x<=platform_x<=block_x+30:
+            block_x=platform_x-30
         #left side
-    if block_x>=platform_x>=block_x-155:
-        block_x=platform_x+155
+        if block_x>=platform_x>=block_x-155:
+            block_x=platform_x+155
     
     
 
