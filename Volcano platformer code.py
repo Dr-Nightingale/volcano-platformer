@@ -46,17 +46,17 @@ while running:
     #giving player movement with arrow keys
     keys=pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        block_x-=0.25
+        block_x-=2
     
     if keys[pygame.K_RIGHT]:
-        block_x+=0.25
+        block_x+=2
 
     #temporary y movement to make sure player doesn't clip through platform
     if keys[pygame.K_UP]:
-        block_y-=0.25
+        block_y-=2
 
     if keys[pygame.K_DOWN]:
-        block_y+=0.25
+        block_y+=2
 
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
