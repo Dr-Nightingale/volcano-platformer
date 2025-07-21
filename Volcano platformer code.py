@@ -25,9 +25,9 @@ block_y=470
 block=pygame.Rect([block_x,block_y,block_size,block_size])
 
 #setting platform positions and dimensions
-platform_size_x=155
+platform_size_x=200
 platform_size_y=20
-platform_x=200
+platform_x=155
 platform_y=480
 platform=pygame.Rect([platform_x,platform_y,platform_size_x,platform_size_y])
 #starting the main game loop
@@ -74,17 +74,24 @@ while running:
         block_x=screen_width-30
 
     #allow player to land on platform and stay there
+    if platform_x>=block_x-155>=block_x<=platform_x<=block_x+30:
+        if block_y>=platform_y-30:
+            block_y=platform_y-30
+    if block_x>=platform_x>=block_x-155:
+        if block_y>=platform_y:
+            block_y=platform_y-30
     
 
     #stop player from going through platform sides
-    if block_y>=platform_y-25:
+    
+    elif block_y>=platform_y-10:
     
         #right side
         if block_x<=platform_x<=block_x+30:
             block_x=platform_x-30
         #left side
-        if block_x>=platform_x>=block_x-155:
-            block_x=platform_x+155
+        if block_x>=platform_x>=block_x-200:
+            block_x=platform_x+200
     
     
 
