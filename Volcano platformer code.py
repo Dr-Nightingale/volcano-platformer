@@ -74,9 +74,9 @@ while running:
         block_x=screen_width-30
 
     #allow player to land on platform and stay there
-    if block_x>=platform_x>block_x-155:
-        if block_y>=platform_y+25:
-            block_y==platform_y-25
+    if block_y<=platform_y+25:
+        if block_x<=platform_x<=block_x-30:
+            block_y=platform_y+25
 
     #stop player from going through platform sides
         
