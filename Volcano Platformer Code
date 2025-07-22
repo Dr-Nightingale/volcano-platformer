@@ -7,7 +7,8 @@ pygame.init()
 
 #setting up physics
 vec=pygame.math.Vector2
-
+ACC=(0.5)
+FRICT= (-0.10)
 #setting game window size
 screen_width=800
 screen_height=500
@@ -32,15 +33,31 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((player_size_x,player_size_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(200,485))
+        self.rect=self.surf.get_rect()
+
+        self.pos=vec((400,485))
+        self.vel=vec(0,0)
+        self.acc=vec(0,0.25)
 #defining player movement
     def move(self):
+        self.acc=vec(0,0.25)
+
         keys=pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            self.rect.move_ip(-2.5,0)
+            self.acc.x= -ACC
         if keys[pygame.K_RIGHT]:
-            self.rect.move_ip(2.5,0)
-        
+            self.acc.x= ACC
+
+        self.acc.x+=self.vel.x * FRICT
+        self.vel+=self.acc
+        self.pos+=self.vel+0.5 * self.acc
+        self.rect.midbottom=self.pos
+    #making it so the player doesn't clip through platforms
+    def update(self):
+        touch=pygame.sprite.spritecollide(plyr,platforms,False)
+        if touch:
+            self.pos.y=touch[0].rect.top +1
+            self.vel.y=0
         
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
@@ -48,16 +65,21 @@ class platform(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(500,485))
+        self.rect=self.surf.get_rect(center=(400,485))
+
 
 #defining player and platform callable names
 plyr=Player()
 pltfrm=platform()
 
-#putting the sprites together into a group
+#putting the sprites together into groups
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(pltfrm)
+
+
+platforms=pygame.sprite.Group()
+platforms.add(pltfrm)
 
 #making a bool value to check if the game is running
 running=True
@@ -80,4 +102,5 @@ while running:
         window.blit(entity.surf,entity.rect)
 
     plyr.move()
+    plyr.update()
     pygame.display.flip()
