@@ -7,7 +7,7 @@ pygame.init()
 
 #setting up physics
 vec=pygame.math.Vector2
-ACC=(0.5)
+ACC=(0.25)
 FRICT= (-0.10)
 #setting game window size
 screen_width=800
@@ -75,17 +75,18 @@ class Player(pygame.sprite.Sprite):
     
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
-    def __init__ (self):
+    def __init__ (self,x,y):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(600,400))
+        self.rect=self.surf.get_rect(center=(x,y))
 
 
 #assigning classes
 plyr=Player()
-pltfrm=platform()
-floor=platform()
+pltfrm1=platform(600,400)
+pltfrm2=platform(400,300)
+floor=platform(400,485)
 
 #defining floor
 floor.surf=pygame.Surface((screen_width,30))
@@ -95,11 +96,14 @@ floor.rect=floor.surf.get_rect(center=(400,485))
 #putting the sprites together into groups
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
-sprites.add(pltfrm)
+sprites.add(pltfrm1)
+sprites.add(pltfrm2)
 sprites.add(floor)
 
+
 platforms=pygame.sprite.Group()
-platforms.add(pltfrm)
+platforms.add(pltfrm1)
+platforms.add(pltfrm2)
 platforms.add(floor)
 #making a bool value to check if the game is running
 running=True
