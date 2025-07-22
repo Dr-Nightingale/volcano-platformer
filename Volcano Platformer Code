@@ -59,13 +59,19 @@ class Player(pygame.sprite.Sprite):
         if touch:
             self.vel.y= -7.5
             
-    #making it so the player doesn't clip through platforms
+    #making it so the player doesn't clip through platforms or the walls
     def update(self):
         touch=pygame.sprite.spritecollide(plyr,platforms,False)
         if plyr.vel.y>0:
             if touch:
                 self.pos.y=touch[0].rect.top +1
                 self.vel.y=0
+        if plyr.pos.x>screen_width:
+            plyr.pos.x=screen_width
+        if plyr.pos.x<0:
+            plyr.pos.x=0
+
+    
     
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
@@ -76,7 +82,7 @@ class platform(pygame.sprite.Sprite):
         self.rect=self.surf.get_rect(center=(600,400))
 
 
-#defining player and platform callable names
+#assigning classes
 plyr=Player()
 pltfrm=platform()
 floor=platform()
