@@ -33,7 +33,13 @@ class Player(pygame.sprite.Sprite):
         self.surf=pygame.Surface((player_size_x,player_size_y))
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect(center=(200,300))
-        
+#defining player movement
+    def move(self):
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.move_ip(-2.5,0)
+        if keys[pygame.K_RIGHT]:
+            self.rect.move_ip(2.5,0)
         
         
 
@@ -75,4 +81,5 @@ while running:
     for entity in sprites:
         window.blit(entity.surf,entity.rect)
 
+    plyr.move()
     pygame.display.flip()
