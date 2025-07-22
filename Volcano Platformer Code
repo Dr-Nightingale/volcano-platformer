@@ -52,6 +52,10 @@ class Player(pygame.sprite.Sprite):
         self.vel+=self.acc
         self.pos+=self.vel+0.5 * self.acc
         self.rect.midbottom=self.pos
+    #defining player jumping
+    def jump(self):
+        self.vel.y= -5
+
     #making it so the player doesn't clip through platforms
     def update(self):
         touch=pygame.sprite.spritecollide(plyr,platforms,False)
@@ -93,6 +97,9 @@ while running:
         #setting running bool to false if event type is quit
         if event.type==pygame.QUIT:
             running=False
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_UP:
+                plyr.jump()
 
     #setting background colour
     window.fill(background_red)
