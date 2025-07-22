@@ -63,4 +63,8 @@ while running:
     #setting background colour
     window.fill(background_red)
 
+    #placing sprites in window
+    for entity in sprites:
+        window.blit(entity.surf,entity.rect)
+
     pygame.display.flip()
