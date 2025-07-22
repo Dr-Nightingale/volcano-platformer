@@ -14,8 +14,8 @@ player_size_x=30
 player_size_y=30
 
 #setting platform size
-platform_x=50
-platform_y=20
+platform_x=200
+platform_y=30
 #setting colour presets
 background_red=(169,62,62)
 player_red=(47,23,23)
@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((player_size_x,player_size_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(400,480))
+        self.rect=self.surf.get_rect(center=(300,490))
 
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
@@ -37,7 +37,7 @@ class platform(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(500,480))
+        self.rect=self.surf.get_rect(center=(500,490))
 #defining player and platform callable names
 plyr=Player()
 pltfrm=platform()
