@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((player_size_x,player_size_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(200,300))
+        self.rect=self.surf.get_rect(center=(200,485))
 #defining player movement
     def move(self):
         keys=pygame.key.get_pressed()
@@ -42,15 +42,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.move_ip(2.5,0)
         
         
-
-
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
     def __init__ (self):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(500,490))
+        self.rect=self.surf.get_rect(center=(500,485))
 
 #defining player and platform callable names
 plyr=Player()
