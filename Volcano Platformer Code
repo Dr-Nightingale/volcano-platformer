@@ -73,22 +73,28 @@ class platform(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(400,485))
+        self.rect=self.surf.get_rect(center=(600,400))
 
 
 #defining player and platform callable names
 plyr=Player()
 pltfrm=platform()
+floor=platform()
+
+#defining floor
+floor.surf=pygame.Surface((screen_width,30))
+floor.surf.fill((player_red))
+floor.rect=floor.surf.get_rect(center=(400,485))
 
 #putting the sprites together into groups
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(pltfrm)
-
+sprites.add(floor)
 
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm)
-
+platforms.add(floor)
 #making a bool value to check if the game is running
 running=True
 
