@@ -5,6 +5,9 @@ from pygame.locals import*
 #initialising pygame module
 pygame.init()
 
+#setting up physics
+vec=pygame.math.Vector2
+
 #setting game window size
 screen_width=800
 screen_height=500
@@ -29,7 +32,11 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.Surface((player_size_x,player_size_y))
         self.surf.fill((player_red))
-        self.rect=self.surf.get_rect(center=(300,490))
+        self.rect=self.surf.get_rect(center=(200,300))
+        
+        
+        
+
 
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
@@ -38,6 +45,7 @@ class platform(pygame.sprite.Sprite):
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect(center=(500,490))
+
 #defining player and platform callable names
 plyr=Player()
 pltfrm=platform()
