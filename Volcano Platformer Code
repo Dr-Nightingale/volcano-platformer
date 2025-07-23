@@ -7,7 +7,7 @@ pygame.init()
 
 #setting up physics
 vec=pygame.math.Vector2
-ACC=(0.05)
+ACC=(0.25)
 FRICT= (-0.10)
 #setting game window size
 screen_width=800
@@ -100,11 +100,14 @@ sprites.add(pltfrm1)
 sprites.add(pltfrm2)
 sprites.add(floor)
 
-
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm1)
 platforms.add(pltfrm2)
 platforms.add(floor)
+
+#setting the framerate
+fps=230
+fpsclock=pygame.time.Clock()
 #making a bool value to check if the game is running
 running=True
 
@@ -132,3 +135,4 @@ while running:
     plyr.move()
     plyr.update()
     pygame.display.flip()
+    fpsclock.tick(fps)
