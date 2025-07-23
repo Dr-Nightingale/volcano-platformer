@@ -85,7 +85,8 @@ class platform(pygame.sprite.Sprite):
 #assigning classes
 plyr=Player()
 pltfrm1=platform(600,400)
-pltfrm2=platform(400,300)
+pltfrm2=platform(300,350)
+pltfrm3=platform(50,250)
 floor=platform(400,485)
 
 #defining floor
@@ -99,10 +100,11 @@ sprites.add(plyr)
 sprites.add(pltfrm1)
 sprites.add(pltfrm2)
 sprites.add(floor)
-
+sprites.add(pltfrm3)
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm1)
 platforms.add(pltfrm2)
+platforms.add(pltfrm3)
 platforms.add(floor)
 
 #setting the framerate
