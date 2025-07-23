@@ -7,7 +7,7 @@ pygame.init()
 
 #setting up physics
 vec=pygame.math.Vector2
-ACC=(0.25)
+ACC=(0.05)
 FRICT= (-0.10)
 #setting game window size
 screen_width=800
@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.acc=vec(0,0.25)
 #defining player movement
     def move(self):
-        self.acc=vec(0,0.25)
+        self.acc=vec(0,0.125)
 
         keys=pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         touch=pygame.sprite.spritecollide(self,platforms,False)
         if touch:
-            self.vel.y= -7.5
+            self.vel.y= -5
             
     #making it so the player doesn't clip through platforms or the walls
     def update(self):
@@ -117,6 +117,7 @@ while running:
         #setting running bool to false if event type is quit
         if event.type==pygame.QUIT:
             running=False
+        #checking if the player wants to jump
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
