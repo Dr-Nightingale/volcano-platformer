@@ -46,6 +46,7 @@ while running:
     #giving player movement with arrow keys
     keys=pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
+<<<<<<< Updated upstream:Volcano platformer code (OLD).py
         block_x-=2
     
     if keys[pygame.K_RIGHT]:
@@ -57,6 +58,19 @@ while running:
 
     if keys[pygame.K_DOWN]:
         block_y+=1
+=======
+        block_x-=5
+    
+    if keys[pygame.K_RIGHT]:
+        block_x+=5
+
+    #temporary y movement to make sure player doesn't clip through platform
+    if keys[pygame.K_UP]:
+        block_y-=5
+
+    if keys[pygame.K_DOWN]:
+        block_y+=5
+>>>>>>> Stashed changes:Volcano platformer code.py
 
     #putting player (block) in window
     pygame.draw.rect(window,block_red,[block_x,block_y,block_size,block_size])
@@ -74,6 +88,7 @@ while running:
         block_x=screen_width-30
 
     #allow player to land on platform and stay there
+<<<<<<< Updated upstream:Volcano platformer code (OLD).py
     if platform_x>=block_x-155>=block_x<=platform_x<=block_x+30:
         if block_y>=platform_y-30:
             block_y=platform_y-30
@@ -85,14 +100,25 @@ while running:
     #stop player from going through platform sides
     
     elif block_y>=platform_y-10:
+=======
+
+
+    #stop player from going through platform sides
+>>>>>>> Stashed changes:Volcano platformer code.py
     
-        #right side
+    #right side
+    if block_y>=platform_y-25:
         if block_x<=platform_x<=block_x+30:
             block_x=platform_x-30
+<<<<<<< Updated upstream:Volcano platformer code (OLD).py
         #left side
         if block_x>=platform_x>=block_x-200:
             block_x=platform_x+200
-    
+=======
+    #left side
+        if block_x>=platform_x>=block_x-155:
+            block_x=platform_x+155
+>>>>>>> Stashed changes:Volcano platformer code.py
     
 
     
