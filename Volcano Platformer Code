@@ -98,6 +98,7 @@ pltfrm6=platform(400,220,platform_green)
 pltfrm7=platform(575,275,platform_grey)
 pltfrm8=platform(740,220,platform_red)
 pltfrm9=platform(640,160,platform_blue)
+pltfrm10=platform(500,120,platform_green)
 floor=platform(400,485,player_red)
 
 #defining floor
@@ -111,7 +112,7 @@ sprites.add(plyr)
 sprites.add(floor)
 
 platforms=pygame.sprite.Group()
-platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9)
+platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10)
 
 
 platforms.add(floor)
