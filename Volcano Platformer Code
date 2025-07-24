@@ -31,7 +31,7 @@ platform_grey=(128,128,128)
 
 #setting the game window variable
 window=pygame.display.set_mode((screen_width, screen_height))
-
+title=pygame.display.set_caption("Volcano Platformer")
 #defining the player sprite
 class Player(pygame.sprite.Sprite):
     def __init__ (self):
