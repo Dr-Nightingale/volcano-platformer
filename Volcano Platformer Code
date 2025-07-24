@@ -14,15 +14,20 @@ screen_width=800
 screen_height=500
 
 #setting player size
-player_size_x=30
-player_size_y=30
+player_size_x=10
+player_size_y=10
 
 #setting platform size
-platform_x=200
-platform_y=30
+platform_x=110
+platform_y=10
 #setting colour presets
 background_red=(169,62,62)
 player_red=(47,23,23)
+#all the platforms will look the same later but for now I need to be able to tell them apart easily
+platform_red=(255,0,0)
+platform_blue=(0,0,255)
+platform_green=(0,255,0)
+platform_grey=(128,128,128)
 
 #setting the game window variable
 window=pygame.display.set_mode((screen_width, screen_height))
@@ -35,9 +40,9 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((400,485))
+        self.pos=vec((25,485))
         self.vel=vec(0,0)
-        self.acc=vec(0,0.25)
+        self.acc=vec(0,0.125)
 #defining player movement
     def move(self):
         self.acc=vec(0,0.125)
@@ -57,7 +62,7 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         touch=pygame.sprite.spritecollide(self,platforms,False)
         if touch:
-            self.vel.y= -5
+            self.vel.y= -4
             
     #making it so the player doesn't clip through platforms or the walls
     def update(self):
@@ -75,19 +80,25 @@ class Player(pygame.sprite.Sprite):
     
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
-    def __init__ (self,x,y):
+    def __init__ (self,x,y,colour):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
-        self.surf.fill((player_red))
+        self.surf.fill((colour))
         self.rect=self.surf.get_rect(center=(x,y))
 
 
-#assigning classes
+#creating platforms and assigning classes
 plyr=Player()
-pltfrm1=platform(600,400)
-pltfrm2=platform(300,350)
-pltfrm3=platform(50,250)
-floor=platform(400,485)
+pltfrm1=platform(145,440,platform_blue)
+pltfrm2=platform(295,390,platform_green)
+pltfrm3=platform(165,335,platform_grey)
+pltfrm4=platform(60,280,platform_red)
+pltfrm5=platform(210,230,platform_blue)
+pltfrm6=platform(400,220,platform_green)
+pltfrm7=platform(575,275,platform_grey)
+pltfrm8=platform(740,220,platform_red)
+pltfrm9=platform(640,160,platform_blue)
+floor=platform(400,485,player_red)
 
 #defining floor
 floor.surf=pygame.Surface((screen_width,30))
@@ -97,14 +108,12 @@ floor.rect=floor.surf.get_rect(center=(400,485))
 #putting the sprites together into groups
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
-sprites.add(pltfrm1)
-sprites.add(pltfrm2)
 sprites.add(floor)
-sprites.add(pltfrm3)
+
 platforms=pygame.sprite.Group()
-platforms.add(pltfrm1)
-platforms.add(pltfrm2)
-platforms.add(pltfrm3)
+platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9)
+
+
 platforms.add(floor)
 
 #setting the framerate
@@ -132,6 +141,8 @@ while running:
 
     #placing sprites in window
     for entity in sprites:
+        window.blit(entity.surf,entity.rect)
+    for entity in platforms:
         window.blit(entity.surf,entity.rect)
 
     plyr.move()
