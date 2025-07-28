@@ -86,6 +86,13 @@ class platform(pygame.sprite.Sprite):
         self.surf.fill((colour))
         self.rect=self.surf.get_rect(center=(x,y))
 
+#defining everything else
+class sprite(pygame.sprite.Sprite):
+    def __init__ (self,sprite_x,sprite_y,x,y,colour):
+        super().__init__()
+        self.surf=pygame.surface.Surface((sprite_x,sprite_y))
+        self.surf.fill((colour))
+        self.rect=self.surf.get_rect(center=(x,y))
 
 #creating platforms and assigning classes
 plyr=Player()
@@ -100,26 +107,56 @@ pltfrm8=platform(740,220,platform_red)
 pltfrm9=platform(640,160,platform_blue)
 pltfrm10=platform(500,120,platform_green)
 floor=platform(400,485,player_red)
+trophy=sprite(20,25,500,110,player_red)
+
 
 #defining floor
 floor.surf=pygame.Surface((screen_width,30))
 floor.surf.fill((player_red))
 floor.rect=floor.surf.get_rect(center=(400,485))
 
+
+
 #putting the sprites together into groups
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(floor)
-
+sprites.add(trophy)
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10)
-
 
 platforms.add(floor)
 
 #setting the framerate
 fps=230
 fpsclock=pygame.time.Clock()
+
+#setting up a win screen 
+def win_screen():
+    if pygame.sprite.spritecollide(plyr,trophy,False):
+        play_again==False
+
+    if play_again==False:
+        window.fill(platform_grey)
+
+        font=pygame.font.SysFont('freesansbold.ttf', 32)
+        text_upper="Game Win!"
+        text_lower="press enter to play again"
+        window.blit(font.render(text_upper,True,platform_blue),(400,250))
+        window.blit(font.render(text_lower,True,platform_blue),(400, 300))
+
+        pygame.display.flip()
+    
+
+    #keeping the screen up until the player chooses to start again
+        while play_again==False:
+            for event in pygame.event.get():
+                if event.type==pygame.KEYDOWN():
+                    if event.key==pygame.K_RETURN:
+                        play_again=True
+        return play_again
+
+
 #making a bool value to check if the game is running
 running=True
 
