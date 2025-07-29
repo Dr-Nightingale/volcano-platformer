@@ -136,8 +136,13 @@ fpsclock=pygame.time.Clock()
 
 
 #setting up a win screen 
-def win_screen(game_over):
-    while game_over==True:
+def win_screen():
+    #checking if the player has fulfilled the win conditions
+    if pygame.sprite.spritecollide(plyr,trophies,False):
+        win=True
+    else:
+        win=False
+    if win==True:
         window.fill(platform_grey)
 
         font=pygame.font.SysFont('freesansbold.ttf', 32)
@@ -147,11 +152,13 @@ def win_screen(game_over):
         window.blit(font.render(text_lower,True,platform_blue),(400, 300))
 
     #ending the screen if the player presses enter 
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_RETURN]:
-            game_over=False
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_RETURN:
+                    win=False
         
-    return game_over
+    return win
+
 
 
 #making a bool value to check if the game is running
@@ -167,17 +174,12 @@ while running:
         #setting running bool to false if event type is quit
         if event.type==pygame.QUIT:
             running=False
-        #checking if the player wants to jump
+        #checking if the player wants to jump when they press a key
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
 
-        #checking if the player has met the win condition
-        elif pygame.sprite.spritecollide(plyr,trophies,False):
-            win=True
-        #putting up the win screen if the win conditions are met
-            win_screen(win)
-    
+        
 
     #setting background colour
     window.fill(background_red)
@@ -190,6 +192,9 @@ while running:
 
     plyr.move()
     plyr.update()
-    
+
+    #putting up the win screen if the win conditions are met
+    win_screen()
+
     pygame.display.flip()
     fpsclock.tick(fps)
