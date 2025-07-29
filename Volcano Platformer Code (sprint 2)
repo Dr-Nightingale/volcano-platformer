@@ -122,39 +122,38 @@ sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(floor)
 sprites.add(trophy)
+
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10)
-
 platforms.add(floor)
+
+trophies=pygame.sprite.Group()
+trophies.add(trophy)
 
 #setting the framerate
 fps=230
 fpsclock=pygame.time.Clock()
 
+
 #setting up a win screen 
 def win_screen():
-    if pygame.sprite.spritecollide(plyr,trophy,False):
-        play_again==False
+    play_again=False
+    window.fill(platform_grey)
 
-    if play_again==False:
-        window.fill(platform_grey)
+    font=pygame.font.SysFont('freesansbold.ttf', 32)
+    text_upper="Game Win!"
+    text_lower="press enter to play again"
+    window.blit(font.render(text_upper,True,platform_blue),(400,250))
+    window.blit(font.render(text_lower,True,platform_blue),(400, 300))
 
-        font=pygame.font.SysFont('freesansbold.ttf', 32)
-        text_upper="Game Win!"
-        text_lower="press enter to play again"
-        window.blit(font.render(text_upper,True,platform_blue),(400,250))
-        window.blit(font.render(text_lower,True,platform_blue),(400, 300))
 
-        pygame.display.flip()
-    
-
-    #keeping the screen up until the player chooses to start again
-        while play_again==False:
-            for event in pygame.event.get():
-                if event.type==pygame.KEYDOWN():
-                    if event.key==pygame.K_RETURN:
-                        play_again=True
-        return play_again
+    #ending the screen if the player presses enter
+    while play_again==False:
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN():
+                if event.key==pygame.K_RETURN:
+                    play_again=True
+    return play_again
 
 
 #making a bool value to check if the game is running
@@ -162,6 +161,16 @@ running=True
 
 #starting the main game loop
 while running:
+
+    #checking if the player has beat the level
+    
+    if pygame.sprite.spritecollide(plyr,trophies,False):
+        play_again=False
+    else:
+        play_again=True 
+
+    if play_again==False:
+        win_screen()
 
     #checking for event in queue
     for event in pygame.event.get():
@@ -173,7 +182,7 @@ while running:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
-
+    
     #setting background colour
     window.fill(background_red)
 
@@ -185,6 +194,6 @@ while running:
 
     plyr.move()
     plyr.update()
-    win_screen()
+    
     pygame.display.flip()
     fpsclock.tick(fps)
