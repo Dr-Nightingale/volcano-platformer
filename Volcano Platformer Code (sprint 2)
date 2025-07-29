@@ -185,5 +185,6 @@ while running:
 
     plyr.move()
     plyr.update()
+    win_screen()
     pygame.display.flip()
     fpsclock.tick(fps)
