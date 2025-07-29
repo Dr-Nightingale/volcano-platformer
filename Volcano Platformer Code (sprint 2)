@@ -136,23 +136,21 @@ fpsclock=pygame.time.Clock()
 
 
 #setting up a win screen 
-def win_screen():
-    play_again=False
-    window.fill(platform_grey)
-
-    font=pygame.font.SysFont('freesansbold.ttf', 32)
-    text_upper="Game Win!"
-    text_lower="press enter to play again"
-    window.blit(font.render(text_upper,True,platform_blue),(400,250))
-    window.blit(font.render(text_lower,True,platform_blue),(400, 300))
-
-
-    #ending the screen if the player presses enter
+def win_screen(play_again):
     while play_again==False:
-        for event in pygame.event.get():
-            if event.type==pygame.KEYDOWN():
-                if event.key==pygame.K_RETURN:
-                    play_again=True
+        window.fill(platform_grey)
+
+        font=pygame.font.SysFont('freesansbold.ttf', 32)
+        text_upper="Game Win!"
+        text_lower="press enter to play again"
+        window.blit(font.render(text_upper,True,platform_blue),(400,250))
+        window.blit(font.render(text_lower,True,platform_blue),(400, 300))
+
+    #ending the screen if the player presses enter 
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_RETURN]:
+            play_again=True
+        
     return play_again
 
 
@@ -162,16 +160,7 @@ running=True
 #starting the main game loop
 while running:
 
-    #checking if the player has beat the level
     
-    if pygame.sprite.spritecollide(plyr,trophies,False):
-        play_again=False
-    else:
-        play_again=True 
-
-    if play_again==False:
-        win_screen()
-
     #checking for event in queue
     for event in pygame.event.get():
 
@@ -182,7 +171,16 @@ while running:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
-    
+
+    #checking if the player has met the win condition
+    if pygame.sprite.spritecollide(plyr,trophies,False):
+        play_again=False
+    else:
+        play_again=True
+    #putting up the win screen if the win conditions are met
+    if play_again==False:
+        win_screen(play_again)
+
     #setting background colour
     window.fill(background_red)
 
