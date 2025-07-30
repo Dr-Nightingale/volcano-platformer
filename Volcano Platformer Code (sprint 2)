@@ -147,15 +147,15 @@ def win_screen():
 
         font=pygame.font.SysFont('freesansbold.ttf', 32)
         text_upper="Game Win!"
-        text_lower="press enter to play again"
-        window.blit(font.render(text_upper,True,platform_blue),(400,250))
-        window.blit(font.render(text_lower,True,platform_blue),(400, 300))
+        text_lower="press space to start the next level"
+        window.blit(font.render(text_upper,True,platform_blue),(250,250))
+        window.blit(font.render(text_lower,True,platform_blue),(250, 300))
 
     #ending the screen if the player presses enter 
-        for event in pygame.event.get():
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_RETURN:
-                    win=False
+    for event in pygame.event.get():
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_SPACE:
+                win=False
         
     return win
 
