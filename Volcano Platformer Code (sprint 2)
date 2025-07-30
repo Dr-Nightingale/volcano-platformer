@@ -92,7 +92,9 @@ class sprite(pygame.sprite.Sprite):
         super().__init__()
         self.surf=pygame.surface.Surface((sprite_x,sprite_y))
         self.surf.fill((colour))
+        self.pos=(x,y)
         self.rect=self.surf.get_rect(center=(x,y))
+        
 
 #creating platforms and assigning classes
 plyr=Player()
@@ -144,6 +146,7 @@ def win_screen():
     else:
         win=False
     if win==True:
+        
         window.fill(platform_grey)
 
         font=pygame.font.SysFont('freesansbold.ttf', 32)
@@ -152,9 +155,9 @@ def win_screen():
         window.blit(font.render(text_upper,True,platform_blue),(250,250))
         window.blit(font.render(text_lower,True,platform_blue),(250, 300))
 
-    keys=pygame.key.get_pressed()
-    if keys[pygame.K_SPACE]:
-        plyr.pos=((25,485))
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            plyr.pos=((25,485))
 
 
         
