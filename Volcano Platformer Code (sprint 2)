@@ -32,8 +32,14 @@ platform_grey=(128,128,128)
 #setting the game window variable
 window=pygame.display.set_mode((screen_width, screen_height))
 title=pygame.display.set_caption("Volcano Platformer")
+
+
+
 #defining the player sprite
 class Player(pygame.sprite.Sprite):
+
+    '''defines the appearance and dimensions of the player and uses those values 
+    to form a corresponding surface and rectangle'''
     def __init__ (self):
         super().__init__()
         self.surf=pygame.Surface((player_size_x,player_size_y))
@@ -43,7 +49,10 @@ class Player(pygame.sprite.Sprite):
         self.pos=vec((25,485))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
-#defining player movement
+
+    '''defines which keys move the player rectangle in what way, as
+    well as affecting this movement using the established physics'''
+    #defining player movement
     def move(self):
         self.acc=vec(0,0.125)
 
@@ -58,12 +67,17 @@ class Player(pygame.sprite.Sprite):
         self.pos+=self.vel+0.5 * self.acc
         self.rect.midbottom=self.pos
     
+    '''allows the player rectangle to jump if it is touching a platform/the floor
+    by subtracting it's vertical velocity'''
     #defining player jumping
     def jump(self):
         touch=pygame.sprite.spritecollide(self,platforms,False)
         if touch:
             self.vel.y= -4
-            
+
+    '''stops the player's vertical movement from increasing if they are 
+    touching a platform, as well as stopping the horizontal movement from 
+    increasing/decreasing if they have reached the edges of the window'''     
     #making it so the player doesn't clip through platforms or the walls
     def update(self):
         touch=pygame.sprite.spritecollide(plyr,platforms,False)
@@ -80,6 +94,9 @@ class Player(pygame.sprite.Sprite):
     
 #defining the platform sprite
 class platform(pygame.sprite.Sprite):
+
+    '''takes in the values and dimensions of a given platform and uses those values 
+    to form a corresponding surface and rectangle'''
     def __init__ (self,x,y,colour):
         super().__init__()
         self.surf=pygame.Surface((platform_x,platform_y))
@@ -88,6 +105,9 @@ class platform(pygame.sprite.Sprite):
 
 #defining everything else
 class sprite(pygame.sprite.Sprite):
+
+    '''takes in the values and dimensions of a given sprite and uses those values 
+    to form a corresponding surface and rectangle'''
     def __init__ (self,sprite_x,sprite_y,x,y,colour):
         super().__init__()
         self.surf=pygame.surface.Surface((sprite_x,sprite_y))
@@ -138,6 +158,10 @@ fpsclock=pygame.time.Clock()
 
 
 #setting up a win screen 
+'''checks if the win condition is active, and if so, draws over the window to
+show a win screen that prompts the player to press the space button. pressing the space
+button changes the player's position back to the start of the level which makes 
+the win condition unfulfilled and changes the screen back'''
 def win_screen():
     #checking if the player has fulfilled the win conditions
     
