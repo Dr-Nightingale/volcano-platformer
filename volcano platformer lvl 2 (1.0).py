@@ -118,18 +118,18 @@ class sprite(pygame.sprite.Sprite):
 
 #creating platforms and assigning classes
 plyr=Player()
-pltfrm1=platform(200,200,platform_blue)
-pltfrm2=platform(300,300,platform_green)
-pltfrm3=platform(300,200,platform_grey)
-pltfrm4=platform(100,100,platform_red)
-pltfrm5=platform(210,230,platform_blue)
-pltfrm6=platform(400,220,platform_green)
-pltfrm7=platform(600,300,platform_grey)
-pltfrm8=platform(700,200,platform_red)
-pltfrm9=platform(600,100,platform_blue)
-pltfrm10=platform(500,200,platform_green)
-floor=platform(400,485,player_red)
-trophy=sprite(20,25,500,110,player_red)
+pltfrm1=platform(755,75,platform_blue)
+pltfrm2=platform(650,125,platform_green)
+pltfrm3=platform(450,100,platform_grey)
+pltfrm4=platform(300,125,platform_red)
+pltfrm5=platform(105,190,platform_blue)
+pltfrm6=platform(245,250,platform_green)
+pltfrm7=platform(475,275,platform_grey)
+pltfrm8=platform(625,325,platform_red)
+pltfrm9=platform(500,375,platform_blue)
+pltfrm10=platform(650,425,platform_green)
+floor=platform(790,485,player_red)
+trophy=sprite(20,25,775,60,player_red)
 
 
 #defining floor
