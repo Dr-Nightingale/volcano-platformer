@@ -118,16 +118,16 @@ class sprite(pygame.sprite.Sprite):
 
 #creating platforms and assigning classes
 plyr=Player()
-pltfrm1=platform(145,440,platform_blue)
-pltfrm2=platform(295,390,platform_green)
-pltfrm3=platform(165,335,platform_grey)
-pltfrm4=platform(60,280,platform_red)
-pltfrm5=platform(210,230,platform_blue)
-pltfrm6=platform(400,220,platform_green)
-pltfrm7=platform(575,275,platform_grey)
-pltfrm8=platform(740,220,platform_red)
-pltfrm9=platform(640,160,platform_blue)
-pltfrm10=platform(500,120,platform_green)
+pltfrm1=platform(x=145,y=440,colour=platform_blue)
+pltfrm2=platform(x=295,y=390,colour=platform_green)
+pltfrm3=platform(x=165,y=335,colour=platform_grey)
+pltfrm4=platform(x=60,y=280,colour=platform_red)
+pltfrm5=platform(x=210,y=230,colour=platform_blue)
+pltfrm6=platform(x=385,y=180,colour=platform_green)
+pltfrm7=platform(x=575,y=275,colour=platform_grey)
+pltfrm8=platform(x=750,y=40,colour=platform_red)
+pltfrm9=platform(x=640,y=80,colour=platform_blue)
+pltfrm10=platform(x=500,y=120,colour=platform_green)
 floor=platform(400,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
 
@@ -162,30 +162,22 @@ fpsclock=pygame.time.Clock()
 show a win screen that prompts the player to press the space button. pressing the space
 button changes the player's position back to the start of the level which makes 
 the win condition unfulfilled and changes the screen back'''
-def win_screen():
+def go_up():
     #checking if the player has fulfilled the win conditions
     
-    if pygame.sprite.spritecollide(plyr,trophies,False):
-        win=True
+    if plyr.pos.y<=0:
+        up=True
     else:
-        win=False
-    if win==True:
-        
-        window.fill(platform_grey)
+        up=False
+    if up==True:
+       for objects in platforms:
+           y += 500
 
-        font=pygame.font.SysFont('freesansbold.ttf', 32)
-        text_upper="Game Win!"
-        text_lower="press space to start the next level"
-        window.blit(font.render(text_upper,True,platform_blue),(250,250))
-        window.blit(font.render(text_lower,True,platform_blue),(250, 300))
-
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
-            plyr.pos=((25,485))
+           
 
 
         
-    return win
+    return up
 
 
 
@@ -222,7 +214,7 @@ while running:
     plyr.update()
 
     #putting up the win screen if the win conditions are met
-    win_screen()
+    go_up()
 
     pygame.display.flip()
     fpsclock.tick(fps)
