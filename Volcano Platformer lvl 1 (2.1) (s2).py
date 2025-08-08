@@ -130,11 +130,12 @@ platform_values=[(145, 440, platform_blue),
     (60, 280, platform_red),
     (210, 230, platform_blue),
     (385, 180, platform_green),
-    (500, -50, platform_grey),
+    (450, -50, platform_grey),
     (750, 40, platform_red),
     (640, 80, platform_blue),
     (500, 120, platform_green),
-    (625,-10,platform_grey)]
+    (625,-10,platform_grey),
+    (275,-90,platform_red)]
 
 platform_list=[]
 for x,y,colour in platform_values:
