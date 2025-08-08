@@ -11,7 +11,7 @@ ACC=(0.25)
 FRICT= (-0.10)
 #setting game window size
 screen_width=800
-screen_height=500
+screen_height=800
 
 #setting player size
 player_size_x=10
@@ -124,18 +124,19 @@ class sprite(pygame.sprite.Sprite):
 #creating platforms and assigning classes
 plyr=Player()
 
-platform_values=[(145, 440, platform_blue),
-    (295, 390, platform_green),
-    (165, 335, platform_grey),
-    (60, 280, platform_red),
-    (210, 230, platform_blue),
-    (385, 180, platform_green),
-    (450, -50, platform_grey),
-    (750, 40, platform_red),
-    (640, 80, platform_blue),
-    (500, 120, platform_green),
-    (625,-10,platform_grey),
-    (275,-90,platform_red)]
+platform_values=[(145, 740, platform_blue),
+    (295, 690, platform_green),
+    (165, 635, platform_grey),
+    (60, 580, platform_red),
+    (210, 530, platform_blue),
+    (385, 480, platform_green),
+    (450, 250, platform_grey),
+    (750, 340, platform_red),
+    (640, 380, platform_blue),
+    (500, 420, platform_green),
+    (625,290,platform_grey),
+    (275,210,platform_red),
+    (375,150,platform_blue)]
 
 platform_list=[]
 for x,y,colour in platform_values:
@@ -150,7 +151,7 @@ trophy=sprite(20,25,500,110,player_red)
 #defining floor
 floor.surf=pygame.Surface((screen_width,30))
 floor.surf.fill((player_red))
-floor.rect=floor.surf.get_rect(center=(400,485))
+floor.rect=floor.surf.get_rect(center=(400,785))
 
 
 
@@ -181,7 +182,7 @@ def platform_move(gone_up,gone_down):
     #making sure the code doesn't repeat every frame and only executes once
 
     if gone_up==False:
-        if plyr.pos.y<=0:
+        if plyr.pos.y<=355:
             for plat in platforms:
                 plat.rect.y += 5
             gone_up=True
@@ -189,7 +190,7 @@ def platform_move(gone_up,gone_down):
         
 
     if gone_down==False:
-        if plyr.pos.y>=500:
+        if plyr.pos.y>=800:
             for plat in platforms:
                 plat.rect.y -=10
             gone_down=True
