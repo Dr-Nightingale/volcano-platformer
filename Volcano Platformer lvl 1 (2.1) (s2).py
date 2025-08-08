@@ -123,6 +123,8 @@ class sprite(pygame.sprite.Sprite):
 
 #creating platforms and assigning classes
 plyr=Player()
+
+
 pltfrm1=platform(x=145,y=440,colour=platform_blue)
 pltfrm2=platform(x=295,y=390,colour=platform_green)
 pltfrm3=platform(x=165,y=335,colour=platform_grey)
@@ -133,6 +135,7 @@ pltfrm7=platform(x=575,y=275,colour=platform_grey)
 pltfrm8=platform(x=750,y=40,colour=platform_red)
 pltfrm9=platform(x=640,y=80,colour=platform_blue)
 pltfrm10=platform(x=500,y=120,colour=platform_green)
+pltfrm11=platform(450,-20,platform_grey)
 floor=platform(400,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
 
@@ -151,7 +154,7 @@ sprites.add(floor)
 sprites.add(trophy)
 
 platforms=pygame.sprite.Group()
-platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10)
+platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10,pltfrm11)
 platforms.add(floor)
 
 trophies=pygame.sprite.Group()
@@ -161,15 +164,33 @@ trophies.add(trophy)
 fps=230
 fpsclock=pygame.time.Clock()
 
+gone_up=False
+gone_down=False
 
-def platform_move():
-    '''checking if the player's y value is less than 0 (above the screen) 
-    and sending all platforms down by 500 if so'''
-    if plyr.pos.y<=0:
-        for plat in platforms:
-            plat.rect.y += 500
+def platform_move(gone_up,gone_down):
+    '''checking if the player's y value is less than 0 (above the screen) or more than 500 (below the screen)
+    and sending all platforms up or down by 500 if so'''
 
-            
+    #making sure the code doesn't repeat every frame and only executes once
+
+    if gone_up==False:
+        if plyr.pos.y<=0:
+            for plat in platforms:
+                plat.rect.y += 5
+            gone_up=True
+        
+        
+
+    if gone_down==False:
+        if plyr.pos.y>=500:
+            for plat in platforms:
+                plat.rect.y -=5
+            gone_down=True
+        
+    
+    return (gone_up,gone_down)
+    
+
             
              
 
@@ -203,8 +224,6 @@ while running:
             if event.key==pygame.K_UP:
                 plyr.jump()
 
-    for platform in platforms:
-        platform_move()
 
     #setting background colour
     window.fill(background_red)
@@ -217,6 +236,7 @@ while running:
 
     plyr.move()
     plyr.update()
+    platform_move(gone_up,gone_down)
 
 
     pygame.display.flip()
