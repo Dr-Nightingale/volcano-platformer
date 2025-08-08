@@ -102,7 +102,12 @@ class platform(pygame.sprite.Sprite):
         self.surf=pygame.Surface((platform_x,platform_y))
         self.surf.fill((colour))
         self.rect=self.surf.get_rect(center=(x,y))
+        self.rect.x=x
+        self.rect.y=y
+        self.pos=vec(x,y)
 
+
+        
 #defining everything else
 class sprite(pygame.sprite.Sprite):
 
@@ -157,27 +162,23 @@ fps=230
 fpsclock=pygame.time.Clock()
 
 
-#setting up a win screen 
-'''checks if the win condition is active, and if so, draws over the window to
-show a win screen that prompts the player to press the space button. pressing the space
-button changes the player's position back to the start of the level which makes 
-the win condition unfulfilled and changes the screen back'''
-def go_up():
-    #checking if the player has fulfilled the win conditions
-    
+def platform_move():
+    '''checking if the player's y value is less than 0 (above the screen) 
+    and sending all platforms down by 500 if so'''
     if plyr.pos.y<=0:
-        up=True
-    else:
-        up=False
-    if up==True:
-       for objects in platforms:
-           y += 500
+        for plat in platforms:
+            
+             
 
-           
 
+    
+        
+        
+        
+    
 
         
-    return up
+    
 
 
 
@@ -199,7 +200,9 @@ while running:
             if event.key==pygame.K_UP:
                 plyr.jump()
 
-        
+    for platform in platforms:
+        if plyr.pos.y < 0:
+            platform.pos.y
 
     #setting background colour
     window.fill(background_red)
@@ -213,8 +216,6 @@ while running:
     plyr.move()
     plyr.update()
 
-    #putting up the win screen if the win conditions are met
-    go_up()
 
     pygame.display.flip()
     fpsclock.tick(fps)
