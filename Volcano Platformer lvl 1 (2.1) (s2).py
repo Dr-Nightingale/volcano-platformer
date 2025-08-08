@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((25,485))
+        self.pos=vec((775,40))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -131,11 +131,11 @@ pltfrm3=platform(x=165,y=335,colour=platform_grey)
 pltfrm4=platform(x=60,y=280,colour=platform_red)
 pltfrm5=platform(x=210,y=230,colour=platform_blue)
 pltfrm6=platform(x=385,y=180,colour=platform_green)
-pltfrm7=platform(x=575,y=275,colour=platform_grey)
+pltfrm7=platform(x=500,y=-50,colour=platform_grey)
 pltfrm8=platform(x=750,y=40,colour=platform_red)
 pltfrm9=platform(x=640,y=80,colour=platform_blue)
 pltfrm10=platform(x=500,y=120,colour=platform_green)
-pltfrm11=platform(450,-20,platform_grey)
+pltfrm11=platform(625,-10,platform_grey)
 floor=platform(400,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
 
@@ -184,7 +184,7 @@ def platform_move(gone_up,gone_down):
     if gone_down==False:
         if plyr.pos.y>=500:
             for plat in platforms:
-                plat.rect.y -=5
+                plat.rect.y -=10
             gone_down=True
         
     
