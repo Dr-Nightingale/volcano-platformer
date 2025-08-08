@@ -167,6 +167,9 @@ def platform_move():
     and sending all platforms down by 500 if so'''
     if plyr.pos.y<=0:
         for plat in platforms:
+            plat.rect.y += 500
+
+            
             
              
 
@@ -201,8 +204,7 @@ while running:
                 plyr.jump()
 
     for platform in platforms:
-        if plyr.pos.y < 0:
-            platform.pos.y
+        platform_move()
 
     #setting background colour
     window.fill(background_red)
