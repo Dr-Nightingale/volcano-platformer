@@ -151,14 +151,14 @@ floor.rect=floor.surf.get_rect(center=(400,485))
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(floor)
-sprites.add(trophy)
+sprites.add()
 
 platforms=pygame.sprite.Group()
 platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10,pltfrm11)
 platforms.add(floor)
 
 trophies=pygame.sprite.Group()
-trophies.add(trophy)
+trophies.add()
 
 #setting the framerate
 fps=230
