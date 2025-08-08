@@ -124,17 +124,23 @@ class sprite(pygame.sprite.Sprite):
 #creating platforms and assigning classes
 plyr=Player()
 
+platform_values=[(145, 440, platform_blue),
+    (295, 390, platform_green),
+    (165, 335, platform_grey),
+    (60, 280, platform_red),
+    (210, 230, platform_blue),
+    (385, 180, platform_green),
+    (500, -50, platform_grey),
+    (750, 40, platform_red),
+    (640, 80, platform_blue),
+    (500, 120, platform_green),
+    (625,-10,platform_grey)]
 
-pltfrm1=platform(x=145,y=440,colour=platform_blue)
-pltfrm2=platform(x=295,y=390,colour=platform_green)
-pltfrm3=platform(x=165,y=335,colour=platform_grey)
-pltfrm4=platform(x=60,y=280,colour=platform_red)
-pltfrm5=platform(x=210,y=230,colour=platform_blue)
-pltfrm6=platform(x=385,y=180,colour=platform_green)
-pltfrm7=platform(x=500,y=-50,colour=platform_grey)
-pltfrm8=platform(x=750,y=40,colour=platform_red)
-pltfrm9=platform(x=640,y=80,colour=platform_blue)
-pltfrm10=platform(x=500,y=120,colour=platform_green)
+platform_list=[]
+for x,y,colour in platform_values:
+    platform_list.append(platform(x=x,y=y,colour=colour))
+
+
 pltfrm11=platform(625,-10,platform_grey)
 floor=platform(400,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
@@ -154,7 +160,7 @@ sprites.add(floor)
 sprites.add()
 
 platforms=pygame.sprite.Group()
-platforms.add(pltfrm1,pltfrm2,pltfrm3,pltfrm4,pltfrm5,pltfrm6,pltfrm7,pltfrm8,pltfrm9,pltfrm10,pltfrm11)
+platforms.add(*platform_list)
 platforms.add(floor)
 
 trophies=pygame.sprite.Group()
