@@ -1,9 +1,11 @@
-#importing pygame module
+#importing pygame and time modules
 import pygame
 from pygame.locals import*
+import time
 
-#initialising pygame module
+#initialising pygame and time modules
 pygame.init()
+
 
 #setting up physics
 vec=pygame.math.Vector2
@@ -47,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((775,40))
+        self.pos=vec((30,785))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -168,6 +170,29 @@ platforms.add(floor)
 trophies=pygame.sprite.Group()
 trophies.add()
 
+
+line_number=(0)
+#drawing all the narrator's lines consecutively
+def narration(line_number):
+    '''looking at the line number and placing the corresponding text line on screen'''
+
+    font=pygame.font.SysFont('freesansbold.ttf', 32)
+    
+    if line_number==0:
+        text="testing, testing"
+        window.blit(font.render(text,True,platform_blue),(250,250))
+        line_number+=1
+
+
+    if line_number==1:
+        text="hello, hello?"
+        window.blit(font.render(text,True,platform_blue),(250,250))  
+        line_number+=1    
+        
+    return line_number
+
+
+
 #setting the framerate
 fps=230
 fpsclock=pygame.time.Clock()
@@ -179,7 +204,6 @@ def platform_move(gone_up,gone_down):
     '''checking if the player's y value is less than 355 or more than 800 (below the screen)
     and sending all platforms up or down by 5 if so'''
 
-    #making sure the code doesn't repeat every frame and only executes once
     if gone_up==False:
         if plyr.pos.y<=355:
             for plat in platforms:
@@ -192,14 +216,11 @@ def platform_move(gone_up,gone_down):
                 plat.rect.y -=5
             gone_down=True
         
-    
     return (gone_up,gone_down)
     
 
-
 #making a bool value to check if the game is running
 running=True
-
 #starting the main game loop
 while running:
 
@@ -228,6 +249,7 @@ while running:
     plyr.move()
     plyr.update()
     platform_move(gone_up,gone_down)
+    narration(line_number)
 
 
     pygame.display.flip()
