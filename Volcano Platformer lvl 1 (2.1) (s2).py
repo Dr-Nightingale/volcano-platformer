@@ -23,6 +23,7 @@ platform_y=10
 #setting colour presets
 background_red=(169,62,62)
 player_red=(47,23,23)
+black=(0,0,0)
 #all the platforms will look the same later but for now I need to be able to tell them apart easily
 platform_red=(255,0,0)
 platform_blue=(0,0,255)
@@ -142,10 +143,9 @@ platform_list=[]
 for x,y,colour in platform_values:
     platform_list.append(platform(x=x,y=y,colour=colour))
 
-
-pltfrm11=platform(625,-10,platform_grey)
-floor=platform(400,485,player_red)
+floor=platform(screen_width,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
+narrator=sprite(screen_width,450,400,50,black)
 
 
 #defining floor
@@ -159,7 +159,7 @@ floor.rect=floor.surf.get_rect(center=(400,785))
 sprites=pygame.sprite.Group()
 sprites.add(plyr)
 sprites.add(floor)
-sprites.add()
+sprites.add(narrator)
 
 platforms=pygame.sprite.Group()
 platforms.add(*platform_list)
@@ -176,42 +176,25 @@ gone_up=False
 gone_down=False
 
 def platform_move(gone_up,gone_down):
-    '''checking if the player's y value is less than 0 (above the screen) or more than 500 (below the screen)
-    and sending all platforms up or down by 500 if so'''
+    '''checking if the player's y value is less than 355 or more than 800 (below the screen)
+    and sending all platforms up or down by 5 if so'''
 
     #making sure the code doesn't repeat every frame and only executes once
-
     if gone_up==False:
         if plyr.pos.y<=355:
             for plat in platforms:
                 plat.rect.y += 5
-            gone_up=True
-        
-        
+            gone_up=True  
 
     if gone_down==False:
         if plyr.pos.y>=800:
             for plat in platforms:
-                plat.rect.y -=10
+                plat.rect.y -=5
             gone_down=True
         
     
     return (gone_up,gone_down)
     
-
-            
-             
-
-
-    
-        
-        
-        
-    
-
-        
-    
-
 
 
 #making a bool value to check if the game is running
@@ -237,9 +220,9 @@ while running:
     window.fill(background_red)
 
     #placing sprites in window
-    for entity in sprites:
-        window.blit(entity.surf,entity.rect)
     for entity in platforms:
+        window.blit(entity.surf,entity.rect)
+    for entity in sprites:
         window.blit(entity.surf,entity.rect)
 
     plyr.move()
