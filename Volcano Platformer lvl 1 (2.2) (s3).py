@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((30,785))
+        self.pos=vec((700,300))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -164,12 +164,13 @@ sprites.add(plyr)
 sprites.add(floor)
 sprites.add(narrator)
 
+
 platforms=pygame.sprite.Group()
 platforms.add(*platform_list)
 platforms.add(floor)
 
 trophies=pygame.sprite.Group()
-trophies.add()
+trophies.add(trophy)
 
 
 line_number=(0)
@@ -179,26 +180,24 @@ def narration(line_number):
     
     #defining the font and text position
     font=pygame.font.SysFont('freesansbold.ttf', 32)
-    text_x_y=(50,50)
+    text_x=(50)
 
-    #rendering text
+    #rendering text based on what the line number is
     if line_number==0:
-        text="testing, testing"   
-        window.blit(font.render(text,True,platform_blue),text_x_y)
+        text1="testing, testing"  
+        text2="mary had a little lamb" 
+        window.blit(font.render(text1,True,platform_blue),(text_x,50))
+        window.blit(font.render(text2,True,platform_blue),(text_x,90))
              
 
     elif line_number==1:
         text="hello, hello?"
-        window.blit(font.render(text,True,platform_blue),text_x_y)
+        window.blit(font.render(text,True,platform_blue),(text_x,50))
              
 
     elif line_number==2:
         text="lorem ipsum"
-        window.blit(font.render(text,True,platform_blue),text_x_y) 
-        
-
-    
-    
+        window.blit(font.render(text,True,platform_blue),(text_x,50)) 
 
 
 
@@ -209,6 +208,7 @@ fpsclock=pygame.time.Clock()
 gone_up=False
 gone_down=False
 
+#making it look like the screen is moving up and down based on the player's position
 def platform_move(gone_up,gone_down):
     '''checking if the player's y value is less than 355 or more than 800 (below the screen)
     and sending all platforms up or down by 5 if so'''
@@ -217,12 +217,14 @@ def platform_move(gone_up,gone_down):
         if plyr.pos.y<=355:
             for plat in platforms:
                 plat.rect.y += 5
+            trophy.rect.y+=5
             gone_up=True  
 
     if gone_down==False:
         if plyr.pos.y>=800:
             for plat in platforms:
                 plat.rect.y -=5
+            trophy.rect.y-=5
             gone_down=True
         
     return (gone_up,gone_down)
@@ -240,7 +242,7 @@ while running:
         #setting running bool to false if event type is quit
         if event.type==pygame.QUIT:
             running=False
-        #checking if the player wants to jump when they press a key
+        #checking if the player wants to jump or progress the narrator when they press a key
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
@@ -251,16 +253,20 @@ while running:
     window.fill(background_red)
 
     #placing sprites in window
+    for entity in trophies:
+        window.blit(entity.surf,entity.rect)
     for entity in platforms:
         window.blit(entity.surf,entity.rect)
     for entity in sprites:
         window.blit(entity.surf,entity.rect)
+    
 
+    #calling various functions each gameloop
     plyr.move()
     plyr.update()
     platform_move(gone_up,gone_down)
     narration(line_number)
 
-
+    #updating the screen
     pygame.display.flip()
     fpsclock.tick(fps)
