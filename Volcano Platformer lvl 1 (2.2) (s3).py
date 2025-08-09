@@ -180,20 +180,35 @@ def narration(line_number):
     
     #defining the font and text position
     font=pygame.font.SysFont('freesansbold.ttf', 32)
-    text_x=(50)
+    text_x=(30)
 
     #rendering text based on what the line number is
     if line_number==0:
-        text1="testing, testing"  
-        text2="mary had a little lamb" 
-        window.blit(font.render(text1,True,platform_blue),(text_x,50))
-        window.blit(font.render(text2,True,platform_blue),(text_x,90))
-             
+        text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
+        text2="born yet... were you ever taught the story of how the kiwi lost its" 
+        text3="wings? Quite a funny story, you see the bugs had been causing such a"
+        text4="ruckus for the trees at the time, munching at their bark and"
+        text5="getting them sick, and so one day Tāne Mahuta asks"
+        text6="all the birds if any of them would agree to lose their wings"
+        text7="and live on the ground, to eat all the bugs"
+        window.blit(font.render(text1,True,platform_blue),(text_x,5))
+        window.blit(font.render(text2,True,platform_blue),(text_x,40))
+        window.blit(font.render(text3,True,platform_blue),(text_x,80))
+        window.blit(font.render(text4,True,platform_blue),(text_x,120))
+        window.blit(font.render(text5,True,platform_blue),(text_x,160))
+        window.blit(font.render(text6,True,platform_blue),(text_x,200))
+        window.blit(font.render(text7,True,platform_blue),(text_x,240))
 
     elif line_number==1:
-        text="hello, hello?"
-        window.blit(font.render(text,True,platform_blue),(text_x,50))
-             
+        text1="I remember the tui said he was too scared of the dark to do it, hah!"
+        text2="And the pūkeko, oh no, he didn’t want to get his feet dirty! "
+        text3="Even the pīpīwharauroa said no,"
+        text4="said he was too busy building his nest!"
+
+        window.blit(font.render(text1,True,platform_blue),(text_x,20))
+        window.blit(font.render(text2,True,platform_blue),(text_x,60))   
+        window.blit(font.render(text3,True,platform_blue),(text_x,100))
+        window.blit(font.render(text4,True,platform_blue),(text_x,140))
 
     elif line_number==2:
         text="lorem ipsum"
