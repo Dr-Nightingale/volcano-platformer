@@ -172,40 +172,32 @@ trophies=pygame.sprite.Group()
 trophies.add()
 
 
-line_number=0
+line_number=(0)
 
 #drawing all the narrator's lines consecutively
 def narration(line_number):
     '''looking at the line number and placing the corresponding text line on screen'''
     
-    #defining the font and if a key is being pressed
+    #defining the font and text position
     font=pygame.font.SysFont('freesansbold.ttf', 32)
-
-    keys=pygame.key.get_pressed()
-    if keys[pygame.K_SPACE]:
-        show_text=False
-        line_number+=1   
-    else:
-        show_text=True
-
+    text_x_y=(50,50)
     #rendering text if the player isn't pressing space
-    while show_text==True:
-        
-        if line_number==0:
-            text="testing, testing"   
-            window.blit(font.render(text,True,platform_blue),(250,250))
+    if line_number==0:
+        text="testing, testing"   
+        window.blit(font.render(text,True,platform_blue),text_x_y)
              
 
-        if line_number==1:
-            text="hello, hello?"
-            window.blit(font.render(text,True,platform_blue),(250,250))
+    elif line_number==1:
+        text="hello, hello?"
+        window.blit(font.render(text,True,platform_blue),text_x_y)
              
 
-        if line_number==2:
-            text="lorem ipsum"
-            window.blit(font.render(text,True,platform_blue),(250,250)) 
+    elif line_number==2:
+        text="lorem ipsum"
+        window.blit(font.render(text,True,platform_blue),text_x_y) 
+    
+    
         
-
     return line_number
     
     
@@ -254,7 +246,8 @@ while running:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
                 plyr.jump()
-
+            if event.key==pygame.K_SPACE:
+                line_number+=1
 
     #setting background colour
     window.fill(background_red)
