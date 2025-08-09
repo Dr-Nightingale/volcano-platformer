@@ -127,7 +127,8 @@ class sprite(pygame.sprite.Sprite):
 #creating platforms and assigning classes
 plyr=Player()
 
-platform_values=[(145, 740, platform_blue),
+platform_values=[
+    (145, 740, platform_blue),
     (295, 690, platform_green),
     (165, 635, platform_grey),
     (60, 580, platform_red),
@@ -137,9 +138,9 @@ platform_values=[(145, 740, platform_blue),
     (750, 340, platform_red),
     (640, 380, platform_blue),
     (500, 420, platform_green),
-    (625,290,platform_grey),
-    (275,210,platform_red),
-    (375,150,platform_blue)]
+    (625,290, platform_grey),
+    (275,210, platform_red),
+    (375,150, platform_blue)]
 
 platform_list=[]
 for x,y,colour in platform_values:
@@ -171,25 +172,43 @@ trophies=pygame.sprite.Group()
 trophies.add()
 
 
-line_number=(0)
+line_number=0
+
 #drawing all the narrator's lines consecutively
 def narration(line_number):
     '''looking at the line number and placing the corresponding text line on screen'''
-
-    font=pygame.font.SysFont('freesansbold.ttf', 32)
     
-    if line_number==0:
-        text="testing, testing"
-        window.blit(font.render(text,True,platform_blue),(250,250))
-        line_number+=1
+    #defining the font and if a key is being pressed
+    font=pygame.font.SysFont('freesansbold.ttf', 32)
 
+    keys=pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        show_text=False
+        line_number+=1   
+    else:
+        show_text=True
 
-    if line_number==1:
-        text="hello, hello?"
-        window.blit(font.render(text,True,platform_blue),(250,250))  
-        line_number+=1    
+    #rendering text if the player isn't pressing space
+    while show_text==True:
         
+        if line_number==0:
+            text="testing, testing"   
+            window.blit(font.render(text,True,platform_blue),(250,250))
+             
+
+        if line_number==1:
+            text="hello, hello?"
+            window.blit(font.render(text,True,platform_blue),(250,250))
+             
+
+        if line_number==2:
+            text="lorem ipsum"
+            window.blit(font.render(text,True,platform_blue),(250,250)) 
+        
+
     return line_number
+    
+    
 
 
 
