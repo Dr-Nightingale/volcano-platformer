@@ -174,14 +174,14 @@ trophies.add()
 
 line_number=(0)
 
-#drawing all the narrator's lines consecutively
 def narration(line_number):
-    '''looking at the line number and placing the corresponding text line on screen'''
+    '''looks at the line number and places the corresponding text line on screen'''
     
     #defining the font and text position
     font=pygame.font.SysFont('freesansbold.ttf', 32)
     text_x_y=(50,50)
-    #rendering text if the player isn't pressing space
+
+    #rendering text
     if line_number==0:
         text="testing, testing"   
         window.blit(font.render(text,True,platform_blue),text_x_y)
@@ -195,10 +195,8 @@ def narration(line_number):
     elif line_number==2:
         text="lorem ipsum"
         window.blit(font.render(text,True,platform_blue),text_x_y) 
-    
-    
         
-    return line_number
+
     
     
 
