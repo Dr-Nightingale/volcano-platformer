@@ -1,9 +1,9 @@
-#importing pygame and time modules
+#importing modules
 import pygame
 from pygame.locals import*
-import time
+import asyncio
 
-#initialising pygame and time modules
+#initialising pygame module
 pygame.init()
 
 
@@ -25,7 +25,8 @@ platform_y=10
 #setting colour presets
 background_red=(169,62,62)
 player_red=(47,23,23)
-black=(0,0,0)
+narrator_colour=(28,3,3)
+text_colour=(140,5,3)
 #all the platforms will look the same later but for now I need to be able to tell them apart easily
 platform_red=(255,0,0)
 platform_blue=(0,0,255)
@@ -148,7 +149,7 @@ for x,y,colour in platform_values:
 
 floor=platform(screen_width,485,player_red)
 trophy=sprite(20,25,500,110,player_red)
-narrator=sprite(screen_width,450,400,50,black)
+narrator=sprite(screen_width,350,400,50,narrator_colour)
 
 
 #defining floor
@@ -184,36 +185,62 @@ def narration(line_number):
 
     #rendering text based on what the line number is
     if line_number==0:
+        text1="thank you, Maui, truly! Although I must confess,"
+        text2="I am not the easiest mountain to scale, I know you will succeed!"
+        text3=""
+        text4=""
+
+    if line_number==1:
+        text1=""
+        text2=""
+        text3=""
+        text4=""
+    if line_number==2:
         text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
         text2="born yet... were you ever taught the story of how the kiwi lost its" 
-        text3="wings? Quite a funny story, you see the bugs had been causing such a"
-        text4="ruckus for the trees at the time, munching at their bark and"
-        text5="getting them sick, and so one day Tāne Mahuta asks"
-        text6="all the birds if any of them would agree to lose their wings"
-        text7="and live on the ground, to eat all the bugs"
-        window.blit(font.render(text1,True,platform_blue),(text_x,5))
-        window.blit(font.render(text2,True,platform_blue),(text_x,40))
-        window.blit(font.render(text3,True,platform_blue),(text_x,80))
-        window.blit(font.render(text4,True,platform_blue),(text_x,120))
-        window.blit(font.render(text5,True,platform_blue),(text_x,160))
-        window.blit(font.render(text6,True,platform_blue),(text_x,200))
-        window.blit(font.render(text7,True,platform_blue),(text_x,240))
+        text3="wings? Quite a funny story actually.."
+        text4=""
 
-    elif line_number==1:
+    if line_number==3:
+        text1="you see the bugs had been causing such a ruckus for the trees at the"
+        text2="time, munching at their bark and getting them sick, and so one day"
+        text3="Tāne Mahuta asks all the birds if any of them would agree to lose"
+        text4="their wings and live on the ground, to eat all the bugs!"
+        
+    if line_number==4:
         text1="I remember the tui said he was too scared of the dark to do it, hah!"
         text2="And the pūkeko, oh no, he didn’t want to get his feet dirty! "
-        text3="Even the pīpīwharauroa said no,"
-        text4="said he was too busy building his nest!"
+        text3="Even the pīpīwharauroa said no, said he was too busy building his nest!"
+        text4=""
+        
+    if line_number==5:
+        text1="Eventually the kiwi stuck his beak up and said he’d do it,which I’ll"
+        text2="tell you, was a huge relief for everyone else. And then... what was it"
+        text3="Tāne said? Oh yes, and then Tāne told the kiwi that he would be"
+        text4="rewarded with love and fame for his sacrifice, and THEN"
+    
+    if line_number == 6:
+        text1="he turns -and this is when it gets good- he turns to the other birds"
+        text2="and starts dishing out punishments to everyone that refused!"
+        text3="He gives the tui that white plume as a sign of his cowardice,"
+        text4=" he banishes the pūkeko to live in the swamps for his vanity,"
+    
+    if line_number == 7:
+        text1="and then he cursed the pīpīwharauroa to never build a nest again!"
+        text2="Said he could only lay eggs in other bird’s nests! Anyway-"
+        text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
+        text4=""
 
-        window.blit(font.render(text1,True,platform_blue),(text_x,20))
-        window.blit(font.render(text2,True,platform_blue),(text_x,60))   
-        window.blit(font.render(text3,True,platform_blue),(text_x,100))
-        window.blit(font.render(text4,True,platform_blue),(text_x,140))
+    if line_number >= 8:
+        text1=""
+        text2=""
+        text3=""
+        text4=""
 
-    elif line_number==2:
-        text="lorem ipsum"
-        window.blit(font.render(text,True,platform_blue),(text_x,50)) 
-
+    window.blit(font.render(text1,True,text_colour),(text_x,40))
+    window.blit(font.render(text2,True,text_colour),(text_x,80))   
+    window.blit(font.render(text3,True,text_colour),(text_x,120))
+    window.blit(font.render(text4,True,text_colour),(text_x,160))
 
 
 #setting the framerate
