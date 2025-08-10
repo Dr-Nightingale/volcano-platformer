@@ -201,8 +201,15 @@ trophies_2.add(trophy_2)
 line_number=(0)
 level_number=(1)
 
-        
+def game_win(level_number):
+    level_number + 1
+    return level_number
+
 def draw_screen(level_number):
+
+    touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
+    if touch_win:
+        game_win(level_number)
 
     if level_number==1:
     #placing sprites in window based on the level number if applicable
@@ -220,11 +227,8 @@ def draw_screen(level_number):
             window.blit(entity.surf,entity.rect)
         for entity in sprites:
             window.blit(entity.surf,entity.rect)
-
-    touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
-    if touch_win:
-        plyr.pos.x=25
-        return line_number + 1
+    
+    return line_number
 
 
 def narration(line_number,level_number):
@@ -249,6 +253,7 @@ def narration(line_number,level_number):
             text2=""
             text3=""
             text4=""
+
         if line_number==2:
             text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
             text2="born yet... were you ever taught the story of how the kiwi lost its" 
@@ -285,7 +290,7 @@ def narration(line_number,level_number):
             text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
             text4=""
 
-        if line_number >= 8:
+        if line_number > 7:
             text1=""
             text2=""
             text3=""
@@ -298,7 +303,7 @@ def narration(line_number,level_number):
             text3="c"
             text4="d"
 
-        if line_number>= 1:
+        if line_number > 0:
             text1="e"
             text2="f"
             text3="g"
