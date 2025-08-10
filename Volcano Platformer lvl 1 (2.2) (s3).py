@@ -175,67 +175,78 @@ trophies.add(trophy)
 
 
 line_number=(0)
+level_number=(0)
 
-def narration(line_number):
-    '''looks at the line number and places the corresponding text line on screen'''
+def narration(line_number,level_number):
+    '''looks at the line and level numbers and places the corresponding text line on screen'''
     
     #defining the font and text position
     font=pygame.font.SysFont('freesansbold.ttf', 32)
     text_x=(30)
 
-    #rendering text based on what the line number is
-    if line_number==0:
-        text1="thank you, Maui, truly! Although I must confess,"
-        text2="I am not the easiest mountain to scale, I know you will succeed!"
-        text3=""
-        text4=""
+    #rendering text based on what the level number is
+    if level_number==0:
 
-    if line_number==1:
-        text1=""
-        text2=""
-        text3=""
-        text4=""
-    if line_number==2:
-        text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
-        text2="born yet... were you ever taught the story of how the kiwi lost its" 
-        text3="wings? Quite a funny story actually.."
-        text4=""
+        #rendering text based on what the line number is
+        if line_number==0:
+            text1="thank you, Maui, truly! Although I must confess,"
+            text2="I am not the easiest mountain to scale, I know you will succeed!"
+            text3=""
+            text4=""
 
-    if line_number==3:
-        text1="you see the bugs had been causing such a ruckus for the trees at the"
-        text2="time, munching at their bark and getting them sick, and so one day"
-        text3="Tāne Mahuta asks all the birds if any of them would agree to lose"
-        text4="their wings and live on the ground, to eat all the bugs!"
+        if line_number==1:
+            text1=""
+            text2=""
+            text3=""
+            text4=""
+        if line_number==2:
+            text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
+            text2="born yet... were you ever taught the story of how the kiwi lost its" 
+            text3="wings? Quite a funny story actually.."
+            text4=""
+
+        if line_number==3:
+            text1="you see the bugs had been causing such a ruckus for the trees at the"
+            text2="time, munching at their bark and getting them sick, and so one day"
+            text3="Tāne Mahuta asks all the birds if any of them would agree to lose"
+            text4="their wings and live on the ground, to eat all the bugs!"
+            
+        if line_number==4:
+            text1="I remember the tui said he was too scared of the dark to do it, hah!"
+            text2="And the pūkeko, oh no, he didn’t want to get his feet dirty! "
+            text3="Even the pīpīwharauroa said no, said he was too busy building his nest!"
+            text4=""
+            
+        if line_number==5:
+            text1="Eventually the kiwi stuck his beak up and said he’d do it,which I’ll"
+            text2="tell you, was a huge relief for everyone else. And then... what was it"
+            text3="Tāne said? Oh yes, and then Tāne told the kiwi that he would be"
+            text4="rewarded with love and fame for his sacrifice, and THEN"
         
-    if line_number==4:
-        text1="I remember the tui said he was too scared of the dark to do it, hah!"
-        text2="And the pūkeko, oh no, he didn’t want to get his feet dirty! "
-        text3="Even the pīpīwharauroa said no, said he was too busy building his nest!"
-        text4=""
+        if line_number == 6:
+            text1="he turns -and this is when it gets good- he turns to the other birds"
+            text2="and starts dishing out punishments to everyone that refused!"
+            text3="He gives the tui that white plume as a sign of his cowardice,"
+            text4=" he banishes the pūkeko to live in the swamps for his vanity,"
         
-    if line_number==5:
-        text1="Eventually the kiwi stuck his beak up and said he’d do it,which I’ll"
-        text2="tell you, was a huge relief for everyone else. And then... what was it"
-        text3="Tāne said? Oh yes, and then Tāne told the kiwi that he would be"
-        text4="rewarded with love and fame for his sacrifice, and THEN"
-    
-    if line_number == 6:
-        text1="he turns -and this is when it gets good- he turns to the other birds"
-        text2="and starts dishing out punishments to everyone that refused!"
-        text3="He gives the tui that white plume as a sign of his cowardice,"
-        text4=" he banishes the pūkeko to live in the swamps for his vanity,"
-    
-    if line_number == 7:
-        text1="and then he cursed the pīpīwharauroa to never build a nest again!"
-        text2="Said he could only lay eggs in other bird’s nests! Anyway-"
-        text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
-        text4=""
+        if line_number == 7:
+            text1="and then he cursed the pīpīwharauroa to never build a nest again!"
+            text2="Said he could only lay eggs in other bird’s nests! Anyway-"
+            text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
+            text4=""
 
-    if line_number >= 8:
-        text1=""
-        text2=""
-        text3=""
-        text4=""
+        if line_number >= 8:
+            text1=""
+            text2=""
+            text3=""
+            text4=""
+
+    if level_number >= 2:
+        if line_number>= 0:
+            text1=""
+            text2=""
+            text3=""
+            text4=""
 
     window.blit(font.render(text1,True,text_colour),(text_x,40))
     window.blit(font.render(text2,True,text_colour),(text_x,80))   
@@ -307,7 +318,7 @@ while running:
     plyr.move()
     plyr.update()
     platform_move(gone_up,gone_down)
-    narration(line_number)
+    narration(line_number,level_number)
 
     #updating the screen
     pygame.display.flip()
