@@ -1,7 +1,7 @@
 #importing modules
 import pygame
 from pygame.locals import*
-import asyncio
+
 
 #initialising pygame module
 pygame.init()
@@ -144,8 +144,18 @@ platform_values1=[
     (375,150, platform_blue)]
 
 platform_values2=[
-    (200, 200, platform_blue),
-    (400, 150, platform_red)]
+    (200, 500, platform_blue),
+    (400, 450, platform_red),
+    (755,375,platform_blue),
+    (650,425,platform_green),
+    (450,400,platform_grey),
+    (300,425,platform_red),
+    (105,490,platform_blue),
+    (245,550,platform_green),
+    (475,575,platform_grey),
+    (625,625,platform_red),
+    (500,675,platform_blue),
+    (650,725,platform_green)]
 
 platform_list1=[]
 for x,y,colour in platform_values1:
@@ -204,8 +214,11 @@ level_number=(1)
 def draw_screen(level_number):
 
     touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
+    # print ("there was a touch")
     if touch_win:
+        print ("about to increment %d", level_number)
         level_number += 1
+        print ("new level %d", level_number)
         plyr.pos.x = 25
 
     if level_number==1:
@@ -225,7 +238,7 @@ def draw_screen(level_number):
         for entity in sprites:
             window.blit(entity.surf,entity.rect)
     
-    return line_number
+    return level_number
 
 
 def narration(line_number,level_number):
@@ -293,7 +306,7 @@ def narration(line_number,level_number):
             text3=""
             text4=""
 
-    if level_number == 2:
+    if level_number >= 2:
         if line_number== 0:
             text1="a"
             text2="b"
@@ -371,12 +384,12 @@ while running:
     
 
     #calling various functions each gameloop
-    draw_screen(level_number)
+    level_number=draw_screen(level_number)
     plyr.move()
     plyr.update()
     platform_move(gone_up,gone_down)
     narration(line_number,level_number)
-    
+
 
 
     #updating the screen
