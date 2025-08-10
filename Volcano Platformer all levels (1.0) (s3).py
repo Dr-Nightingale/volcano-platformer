@@ -201,15 +201,12 @@ trophies_2.add(trophy_2)
 line_number=(0)
 level_number=(1)
 
-def game_win(level_number):
-    level_number + 1
-    return level_number
-
 def draw_screen(level_number):
 
     touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
     if touch_win:
-        game_win(level_number)
+        level_number += 1
+        plyr.pos.x = 25
 
     if level_number==1:
     #placing sprites in window based on the level number if applicable
@@ -220,7 +217,7 @@ def draw_screen(level_number):
         for entity in sprites:
             window.blit(entity.surf,entity.rect)
 
-    elif level_number==2:
+    if level_number==2:
         for entity in trophies_2:
             window.blit(entity.surf,entity.rect)
         for entity in platforms_2:
