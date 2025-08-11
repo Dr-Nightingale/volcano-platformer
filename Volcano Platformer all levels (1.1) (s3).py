@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((20,785))
+        self.pos=vec((750,-225))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -149,10 +149,17 @@ platform_values1=[
     (750, 340, platform_red),
     (640, 380, platform_red),
     (500, 420, platform_red),
-    (625,290, platform_red),
-    (275,210, platform_red),
-    (375,150, platform_red),
-    (480,75, platform_red)]
+    (625, 290, platform_red),
+    (275, 210, platform_red),
+    (375, 150, platform_red),
+    (480, 75, platform_red),
+    (350, 25, platform_red),
+    (175, -15, platform_red),
+    (50, -50, platform_red),
+    (150, -125, platform_red),
+    (350, -175, platform_red),
+    (425, -250, platform_red),
+    (650, -275, platform_red)]
 
 platform_values2=[
     (200, 500, platform_blue),
@@ -161,12 +168,42 @@ platform_values2=[
     (650,425,platform_blue),
     (450,400,platform_blue),
     (300,425,platform_blue),
-    (105,490,platform_blue),
+    (105,440,platform_blue),
     (245,550,platform_blue),
     (475,575,platform_blue),
     (625,625,platform_blue),
     (500,675,platform_blue),
-    (650,725,platform_blue)]
+    (650,725,platform_blue),
+    (75,675,platform_blue),
+    (140,625,platform_blue),
+    (360,700,platform_blue),
+    (340,625,platform_blue),
+    (200, 300, platform_blue),
+    (400, 50, platform_blue),
+    (755,175,platform_blue),
+    (450,125,platform_blue),
+    (450,200,platform_blue),
+    (300,125,platform_blue),
+    (105,240,platform_blue),
+    (245,150,platform_blue),
+    (475,275,platform_blue),
+    (625,325,platform_blue),
+    (500,475,platform_blue),
+    (650,125,platform_blue),
+    (75,75,platform_blue),
+    (140,25,platform_blue),
+    (360,50,platform_blue),
+    (340,25,platform_blue),
+    (475,25,platform_blue),
+    (625,-15,platform_blue),
+    (500,-75,platform_blue),
+    (650,-180,platform_blue),
+    (75,-75,platform_blue),
+    (140,-125,platform_blue),
+    (360,-50,platform_blue),
+    (340,-190,platform_blue),
+    (200,-60,platform_blue),
+    (550,-240,platform_blue)]
 
 platform_list1=[]
 for x,y,colour in platform_values1:
@@ -176,8 +213,8 @@ for x,y,colour in platform_values2:
     platform_list2.append(platform(x=x,y=y,colour=colour))
 
 floor=platform(screen_width,485,player_red)
-trophy_1=sprite(20,25,600,770,player_red)
-trophy_2=sprite(20,25,600,770,player_red)
+trophy_1=sprite(20,25,700,-290,player_red)
+trophy_2=sprite(20,25,600,-245,player_red)
 narrator=sprite(screen_width,350,400,50,narrator_colour)
 
 
@@ -228,7 +265,7 @@ level_number=(0)
 
 def draw_screen(level_number,line_number):
     '''taking in the level number and drawing the corresponding objects/screen'''
-
+    print(plyr.pos)
     if level_number == 0:
         for entity in platforms:
             window.blit(entity.surf,entity.rect)
@@ -238,17 +275,26 @@ def draw_screen(level_number,line_number):
         window.fill(background_red)
 
         font=pygame.font.SysFont('freesansbold.ttf', 32)
+        small_font=pygame.font.SysFont('freesansbold.ttf', 28)
         text_1="Welcome to Untitled Volcano Platformer!"
         text_2="press shift to begin"
-        window.blit(font.render(text_1,True,text_colour),(175,330))
-        window.blit(font.render(text_2,True,text_colour),(300, 380))
-        
+        text_3="Use the left arrow button to move left and the right arrow button to move right"
+        text_4="Use the up button to jump"
+        text_5="You can hold left or right while jumping to move horizontally through the air"
+        text_6="press space to progress dialogue"
+        window.blit(font.render(text_1,True,text_colour),(175,230))
+        window.blit(font.render(text_2,True,text_colour),(300, 340))
+        window.blit(small_font.render(text_3,True,text_colour),(35, 500))
+        window.blit(small_font.render(text_4,True,text_colour),(280, 535))
+        window.blit(small_font.render(text_5,True,text_colour),(45, 620))
+        window.blit(small_font.render(text_6,True,text_colour),(245, 565))
 
         
 
         keys=pygame.key.get_pressed()
         if keys[K_LSHIFT]:
             level_number += 1
+
         touch_win=pygame.sprite.spritecollide(plyr,trophies_1,False)
         
             
@@ -262,7 +308,7 @@ def draw_screen(level_number,line_number):
     if touch_win:
         level_number +=1
         line_number = 1
-        plyr.pos.y = 785
+        plyr.pos.y = 900
         plyr.pos.x = 25
 
     if level_number==1:
@@ -291,7 +337,7 @@ def draw_screen(level_number,line_number):
         font=pygame.font.SysFont('freesansbold.ttf', 32)
         text_upper="Game Win!"
         text_lower="press space to play again"
-        window.blit(font.render(text_upper,True,platform_blue),(250,250))
+        window.blit(font.render(text_upper,True,platform_blue),(300,250))
         window.blit(font.render(text_lower,True,platform_blue),(250, 300))
     
     return level_number, line_number
@@ -369,7 +415,7 @@ def narration(line_number,level_number):
             text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
             text4=""
 
-        if line_number >= 8:
+        if line_number == 9 or line_number >= 9:
             text1=""
             text2=""
             text3=""
@@ -433,28 +479,22 @@ gone_up=False
 gone_down=False
 
 #making it look like the screen is moving up and down based on the player's position
-def platform_move(gone_up,gone_down):
+def platform_move():
     '''checking if the player's y value is less than 355 or more than 800 (below the screen)
     and sending all platforms up or down by 5 if so'''
-
-    if gone_up==False:
-        if plyr.pos.y<=355:
-            for plat in platforms:
-                plat.rect.y += 5
-            for trophy in trophies:
-                trophy.rect.y+=5
-            gone_up=True  
-
-    if gone_down==False:
-        if plyr.pos.y>=800:
-            for plat in platforms:
-                plat.rect.y -=5
-            for trophy in trophies:
-                trophy.rect.y-=5
-            gone_down=True
-        
-    return (gone_up,gone_down)
     
+    if plyr.pos.y<=355:
+        for plat in platforms:
+            plat.rect.y += 5
+        for trophy in trophies:
+            trophy.rect.y+=5
+    
+    if plyr.pos.y>=800:
+        for plat in platforms:
+            plat.rect.y -=5
+        for trophy in trophies:
+            trophy.rect.y-=5
+            
 
 #making a bool value to check if the game is running
 running=True
@@ -481,7 +521,7 @@ while running:
     level_number,line_number=draw_screen(level_number,line_number)
     plyr.move()
     plyr.update()
-    gone_up,gone_down=platform_move(gone_up,gone_down)
+    platform_move()
     narration(line_number,level_number)
     level_number,line_number=play_again(level_number,line_number)
     
