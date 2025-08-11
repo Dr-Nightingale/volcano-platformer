@@ -88,6 +88,9 @@ class Player(pygame.sprite.Sprite):
             touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
         if level_number == 2:
             touch=pygame.sprite.spritecollide(plyr,platforms_2,False)
+        if level_number == 3 or level_number >= 3:
+            touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
+
         if plyr.vel.y>0:
             if touch:
                 self.pos.y=touch[0].rect.top +1
@@ -214,20 +217,18 @@ trophies_2.add(trophy_2)
 line_number=(1)
 level_number=(1)
 
-def check_lines(line_number):
+
+
+
+def draw_screen(level_number,line_number):
+
     touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
+    
     if touch_win:
+        level_number +=1
         line_number = 1
-    return line_number
-
-def draw_screen(level_number):
-
-    touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
-    if level_number < 2:
-        if touch_win:
-            level_number +=1
-            plyr.pos.y = 785
-            plyr.pos.x = 25
+        plyr.pos.y = 785
+        plyr.pos.x = 25
 
     if level_number==1:
     #placing sprites in window based on the level number if applicable
@@ -245,9 +246,25 @@ def draw_screen(level_number):
             window.blit(entity.surf,entity.rect)
         for entity in sprites:
             window.blit(entity.surf,entity.rect)
-    
-    return level_number
 
+    if level_number == 3 or level_number >= 3:
+        window.fill(platform_grey)
+
+        font=pygame.font.SysFont('freesansbold.ttf', 32)
+        text_upper="Game Win!"
+        text_lower="press space to play again"
+        window.blit(font.render(text_upper,True,platform_blue),(250,250))
+        window.blit(font.render(text_lower,True,platform_blue),(250, 300))
+    
+    return level_number, line_number
+
+def play_again(level_number,line_number):
+    if level_number == 3 or level_number >= 3:
+        keys=pygame.key.get_pressed()
+        if keys[K_SPACE]:
+            level_number = 1
+            line_number = 1
+    return level_number,line_number
 
 def narration(line_number,level_number):
     '''looks at the line and level numbers and places the corresponding text line on screen'''
@@ -424,12 +441,12 @@ while running:
     
 
     #calling various functions each gameloop
-    level_number=draw_screen(level_number)
-    line_number=check_lines(line_number)
+    level_number,line_number=draw_screen(level_number,line_number)
     plyr.move()
     plyr.update()
     platform_move(gone_up,gone_down)
     narration(line_number,level_number)
+    level_number,line_number=play_again(level_number,line_number)
 
 
 
