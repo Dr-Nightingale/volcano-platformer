@@ -24,6 +24,7 @@ platform_x=110
 platform_y=10
 #setting colour presets
 background_red=(169,62,62)
+background_blue=(68,121,207)
 player_red=(47,23,23)
 narrator_colour=(28,3,3)
 text_colour=(140,5,3)
@@ -50,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((20,750))
+        self.pos=vec((20,785))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -61,10 +62,11 @@ class Player(pygame.sprite.Sprite):
         self.acc=vec(0,0.125)
 
         keys=pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.acc.x= -ACC
-        if keys[pygame.K_RIGHT]:
-            self.acc.x= ACC
+        if level_number == 1 or level_number == 2:
+            if keys[pygame.K_LEFT]:
+                self.acc.x= -ACC
+            if keys[pygame.K_RIGHT]:
+                self.acc.x= ACC
 
         self.acc.x+=self.vel.x * FRICT
         self.vel+=self.acc
@@ -84,13 +86,15 @@ class Player(pygame.sprite.Sprite):
     increasing/decreasing if they have reached the edges of the window'''     
     #making it so the player doesn't clip through platforms or the walls
     def update(self):
+        if level_number==0:
+            touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
         if level_number == 1:
             touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
         if level_number == 2:
             touch=pygame.sprite.spritecollide(plyr,platforms_2,False)
         if level_number == 3 or level_number >= 3:
             touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
-
+        
         if plyr.vel.y>0:
             if touch:
                 self.pos.y=touch[0].rect.top +1
@@ -147,21 +151,22 @@ platform_values1=[
     (500, 420, platform_red),
     (625,290, platform_red),
     (275,210, platform_red),
-    (375,150, platform_red)]
+    (375,150, platform_red),
+    (480,75, platform_red)]
 
 platform_values2=[
-    (200, 500, platform_red),
-    (400, 450, platform_red),
-    (755,375,platform_red),
-    (650,425,platform_red),
-    (450,400,platform_red),
-    (300,425,platform_red),
-    (105,490,platform_red),
-    (245,550,platform_red),
-    (475,575,platform_red),
-    (625,625,platform_red),
-    (500,675,platform_red),
-    (650,725,platform_red)]
+    (200, 500, platform_blue),
+    (400, 450, platform_blue),
+    (755,375,platform_blue),
+    (650,425,platform_blue),
+    (450,400,platform_blue),
+    (300,425,platform_blue),
+    (105,490,platform_blue),
+    (245,550,platform_blue),
+    (475,575,platform_blue),
+    (625,625,platform_blue),
+    (500,675,platform_blue),
+    (650,725,platform_blue)]
 
 platform_list1=[]
 for x,y,colour in platform_values1:
@@ -215,14 +220,45 @@ trophies_2.add(trophy_2)
  
  
 line_number=(1)
-level_number=(1)
+level_number=(0)
+
 
 
 
 
 def draw_screen(level_number,line_number):
+    print(plyr.pos)
+    '''taking in the level number and drawing the corresponding objects/screen'''
 
-    touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
+    if level_number == 0:
+        for entity in platforms:
+            window.blit(entity.surf,entity.rect)
+        for entity in sprites:
+            window.blit(entity.surf,entity.rect)
+        
+        window.fill(background_blue)
+
+        font=pygame.font.SysFont('freesansbold.ttf', 32)
+        text_upper="Welcome to Untitled Volcano Platformer!"
+        text_lower="press shift to begin"
+        window.blit(font.render(text_upper,True,platform_blue),(250,250))
+        window.blit(font.render(text_lower,True,platform_blue),(250, 300))
+        
+
+        
+
+        keys=pygame.key.get_pressed()
+        if keys[K_LSHIFT]:
+            level_number += 1
+        touch_win=pygame.sprite.spritecollide(plyr,trophies_1,False)
+        
+            
+    if level_number==1:
+        touch_win=pygame.sprite.spritecollide(plyr,trophies_1,False)
+    if level_number==2:
+        touch_win=pygame.sprite.spritecollide(plyr,trophies_2,False)
+    if level_number== 3 or level_number >=3:
+        touch_win=pygame.sprite.spritecollide(plyr,trophies_1,False)
     
     if touch_win:
         level_number +=1
@@ -232,6 +268,8 @@ def draw_screen(level_number,line_number):
 
     if level_number==1:
     #placing sprites in window based on the level number if applicable
+        window.fill(background_red)
+
         for entity in trophies_1:
             window.blit(entity.surf,entity.rect)
         for entity in platforms_1:
@@ -240,6 +278,7 @@ def draw_screen(level_number,line_number):
             window.blit(entity.surf,entity.rect)
 
     if level_number==2:
+        window.fill(background_blue)
         for entity in trophies_2:
             window.blit(entity.surf,entity.rect)
         for entity in platforms_2:
@@ -274,6 +313,12 @@ def narration(line_number,level_number):
     text_x=(30)
 
     #rendering text based on what the level number is
+    if level_number == 0:
+        text1=""
+        text2=""
+        text3=""
+        text4=""
+
     if level_number == 1:
 
         #rendering text based on what the line number is
@@ -431,22 +476,16 @@ while running:
                 plyr.jump()
             if event.key==pygame.K_SPACE:
                 line_number+=1
-            
-            
-        
-
-    #setting background colour
-    window.fill(background_red)
-
     
 
     #calling various functions each gameloop
     level_number,line_number=draw_screen(level_number,line_number)
     plyr.move()
     plyr.update()
-    platform_move(gone_up,gone_down)
+    gone_up,gone_down=platform_move(gone_up,gone_down)
     narration(line_number,level_number)
     level_number,line_number=play_again(level_number,line_number)
+    
 
 
 
