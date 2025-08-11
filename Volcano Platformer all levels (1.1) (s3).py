@@ -84,7 +84,10 @@ class Player(pygame.sprite.Sprite):
     increasing/decreasing if they have reached the edges of the window'''     
     #making it so the player doesn't clip through platforms or the walls
     def update(self):
-        touch=pygame.sprite.spritecollide(plyr,platforms,False)
+        if level_number == 1:
+            touch=pygame.sprite.spritecollide(plyr,platforms_1,False)
+        if level_number == 2:
+            touch=pygame.sprite.spritecollide(plyr,platforms_2,False)
         if plyr.vel.y>0:
             if touch:
                 self.pos.y=touch[0].rect.top +1
@@ -129,33 +132,33 @@ class sprite(pygame.sprite.Sprite):
 plyr=Player()
 
 platform_values1=[
-    (145, 740, platform_blue),
-    (295, 690, platform_green),
-    (165, 635, platform_grey),
+    (145, 740, platform_red),
+    (295, 690, platform_red),
+    (165, 635, platform_red),
     (60, 580, platform_red),
-    (210, 530, platform_blue),
-    (385, 480, platform_green),
-    (450, 250, platform_grey),
+    (210, 530, platform_red),
+    (385, 480, platform_red),
+    (450, 250, platform_red),
     (750, 340, platform_red),
-    (640, 380, platform_blue),
-    (500, 420, platform_green),
-    (625,290, platform_grey),
+    (640, 380, platform_red),
+    (500, 420, platform_red),
+    (625,290, platform_red),
     (275,210, platform_red),
-    (375,150, platform_blue)]
+    (375,150, platform_red)]
 
 platform_values2=[
-    (200, 500, platform_blue),
+    (200, 500, platform_red),
     (400, 450, platform_red),
-    (755,375,platform_blue),
-    (650,425,platform_green),
-    (450,400,platform_grey),
+    (755,375,platform_red),
+    (650,425,platform_red),
+    (450,400,platform_red),
     (300,425,platform_red),
-    (105,490,platform_blue),
-    (245,550,platform_green),
-    (475,575,platform_grey),
+    (105,490,platform_red),
+    (245,550,platform_red),
+    (475,575,platform_red),
     (625,625,platform_red),
-    (500,675,platform_blue),
-    (650,725,platform_green)]
+    (500,675,platform_red),
+    (650,725,platform_red)]
 
 platform_list1=[]
 for x,y,colour in platform_values1:
@@ -208,20 +211,23 @@ trophies_2=pygame.sprite.Group()
 trophies_2.add(trophy_2)
  
  
-line_number=(0)
+line_number=(1)
 level_number=(1)
+
 def check_lines(line_number):
     touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
     if touch_win:
-        line_number = 0
+        line_number = 1
     return line_number
+
 def draw_screen(level_number):
 
     touch_win=pygame.sprite.spritecollide(plyr,trophies,False)
-    if touch_win:
-        level_number += 1
-        plyr.pos.y = 785
-        plyr.pos.x = 25
+    if level_number < 2:
+        if touch_win:
+            level_number +=1
+            plyr.pos.y = 785
+            plyr.pos.x = 25
 
     if level_number==1:
     #placing sprites in window based on the level number if applicable
@@ -251,114 +257,117 @@ def narration(line_number,level_number):
     text_x=(30)
 
     #rendering text based on what the level number is
-    if level_number==1:
+    if level_number == 1:
 
         #rendering text based on what the line number is
-        if line_number==0:
+        if line_number==1:
             text1="thank you, Maui, truly! Although I must confess,"
             text2="I am not the easiest mountain to scale, I know you will succeed!"
             text3=""
             text4=""
 
-        if line_number==1:
+        if line_number==2:
             text1=""
             text2=""
             text3=""
             text4=""
 
-        if line_number==2:
+        if line_number==3:
             text1="Maui, my boy, do you remember when- ah, no you wouldn’t have been"  
             text2="born yet... were you ever taught the story of how the kiwi lost its" 
             text3="wings? Quite a funny story actually.."
             text4=""
 
-        if line_number==3:
+        if line_number==4:
             text1="you see the bugs had been causing such a ruckus for the trees at the"
             text2="time, munching at their bark and getting them sick, and so one day"
             text3="Tāne Mahuta asks all the birds if any of them would agree to lose"
             text4="their wings and live on the ground, to eat all the bugs!"
             
-        if line_number==4:
+        if line_number==5:
             text1="I remember the tui said he was too scared of the dark to do it, hah!"
             text2="And the pūkeko, oh no, he didn’t want to get his feet dirty! "
             text3="Even the pīpīwharauroa said no, said he was too busy building his nest!"
             text4=""
             
-        if line_number==5:
+        if line_number==6:
             text1="Eventually the kiwi stuck his beak up and said he’d do it,which I’ll"
             text2="tell you, was a huge relief for everyone else. And then... what was it"
             text3="Tāne said? Oh yes, and then Tāne told the kiwi that he would be"
             text4="rewarded with love and fame for his sacrifice, and THEN"
         
-        if line_number == 6:
+        if line_number == 7:
             text1="he turns -and this is when it gets good- he turns to the other birds"
             text2="and starts dishing out punishments to everyone that refused!"
             text3="He gives the tui that white plume as a sign of his cowardice,"
             text4=" he banishes the pūkeko to live in the swamps for his vanity,"
         
-        if line_number == 7:
+        if line_number == 8:
             text1="and then he cursed the pīpīwharauroa to never build a nest again!"
             text2="Said he could only lay eggs in other bird’s nests! Anyway-"
             text3="where was I going with this? Ah forget it, Keep up the good work Maui!"
             text4=""
 
-        if line_number > 7:
+        if line_number >= 8:
             text1=""
             text2=""
             text3=""
             text4=""
 
-    elif level_number == 2:
-        if line_number == 0:
+    if level_number == 2:
+        if line_number == 1:
             text1="You’re getting very close, Maui! Don’t give up now!"
             text2=""
             text3=""
             text4=""
 
-        if line_number == 1:
+        if line_number == 2:
             text1=""
             text2=""
             text3=""
             text4=""
 
-        if line_number == 2:
+        if line_number == 3:
             text1="Maui, my boy, how's the temperature down there? are you feeling"
             text2="alright? Well, you’d better be! I don’t mean to brag but my magma-"
             text3="and it IS magma, it’s only lava if it’s outside, you won’t believe how"
             text4="many people don’t know that- can get to well over a thousand degrees!"
 
-        if line_number == 3:
+        if line_number == 4:
             text1="You wouldn’t know it by my glorious coat of snow, but it’s true!"
             text2="Speaking of bragging… did you know that out of all the volcanoes"
             text3="on this island I am the tallest? Second tallest, actually, little"
             text4="Ruapehu has me beat by 279 metres."
         
-        if line_number == 4:
-            text1="But him and his brother Ngauruhoe are always erupting this way and that,"
-            text2="trying to show off! They get it from their father, I suppose. Not"
-            text3="that Tongariro does more than blow smoke nowadays. Ahi!”"
+        if line_number == 5:
+            text1="But him and his brother Ngauruhoe are always erupting this way and"
+            text2="that, trying to show off! They get it from their father, I suppose."
+            text3="Not that Tongariro does more than blow smoke nowadays. Ahi!”"
             text4=""
-        else:
+        if line_number == 6 or line_number >= 6:
             text1=""
             text2=""
             text3=""
             text4=""
-    if level_number >= 2:
+
+    if level_number == 3 or level_number >= 3:
         text1=""
         text2=""
         text3=""
         text4=""
-
+    
     window.blit(font.render(text1,True,text_colour),(text_x,40))
     window.blit(font.render(text2,True,text_colour),(text_x,80))   
     window.blit(font.render(text3,True,text_colour),(text_x,120))
     window.blit(font.render(text4,True,text_colour),(text_x,160))
+    
 
 
 #setting the framerate
 fps=230
 fpsclock=pygame.time.Clock()
 
+#defining player position variables
 gone_up=False
 gone_down=False
 
@@ -398,6 +407,7 @@ while running:
         #setting running bool to false if event type is quit
         if event.type==pygame.QUIT:
             running=False
+
         #checking if the player wants to jump or progress the narrator when they press a key
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_UP:
