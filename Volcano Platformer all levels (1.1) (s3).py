@@ -236,13 +236,13 @@ def draw_screen(level_number,line_number):
         for entity in sprites:
             window.blit(entity.surf,entity.rect)
         
-        window.fill(background_blue)
+        window.fill(background_red)
 
         font=pygame.font.SysFont('freesansbold.ttf', 32)
-        text_upper="Welcome to Untitled Volcano Platformer!"
-        text_lower="press shift to begin"
-        window.blit(font.render(text_upper,True,platform_blue),(250,250))
-        window.blit(font.render(text_lower,True,platform_blue),(250, 300))
+        text_1="Welcome to Untitled Volcano Platformer!"
+        text_2="press shift to begin"
+        window.blit(font.render(text_1,True,text_colour),(175,330))
+        window.blit(font.render(text_2,True,text_colour),(300, 380))
         
 
         
