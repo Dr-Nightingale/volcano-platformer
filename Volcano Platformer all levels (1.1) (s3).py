@@ -227,7 +227,6 @@ level_number=(0)
 
 
 def draw_screen(level_number,line_number):
-    print(plyr.pos)
     '''taking in the level number and drawing the corresponding objects/screen'''
 
     if level_number == 0:
