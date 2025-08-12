@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.surf.fill((player_red))
         self.rect=self.surf.get_rect()
 
-        self.pos=vec((750,-225))
+        self.pos=vec((20,25))
         self.vel=vec(0,0)
         self.acc=vec(0,0.125)
 
@@ -483,7 +483,7 @@ def platform_move():
     '''checking if the player's y value is less than 355 or more than 800 (below the screen)
     and sending all platforms up or down by 5 if so'''
     
-    if plyr.pos.y<=355:
+    if plyr.pos.y<=330:
         for plat in platforms:
             plat.rect.y += 5
         for trophy in trophies:
